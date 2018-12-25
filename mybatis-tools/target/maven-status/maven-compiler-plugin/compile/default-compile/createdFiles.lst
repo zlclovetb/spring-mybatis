@@ -1,0 +1,10 @@
+com\paradm\mybatis\plugins\BaseMapperGeneratorPlugin.class
+com\paradm\mybatis\interceptors\SqlStatementInterceptor.class
+com\paradm\mybatis\plugins\RenameExampleClassPlugin.class
+com\paradm\mybatis\plugins\RenameJavaMapperPlugin.class
+com\paradm\mybatis\plugins\RenameSqlMapperPlugin.class
+com\paradm\base\entity\BaseEntity.class
+com\paradm\mybatis\generators\ChineseCommentGenerator.class
+com\paradm\mybatis\plugins\MyInsertUpdateDynamicTableNamePlugin.class
+com\paradm\base\dao\BaseMapper.class
+com\paradm\mybatis\plugins\MyDynamicTableNamePlugin.class

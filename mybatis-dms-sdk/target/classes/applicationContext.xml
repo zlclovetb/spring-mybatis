@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+  <context:component-scan base-package="com.paradm.mybatis"></context:component-scan>
+  
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+  	<property name="url" value="jdbc:jtds:sqlserver://192.168.20.57:1433/ParaHub_3.2.0_UAT" />
+	<property name="username" value="sa" />
+	<property name="password" value="P@ssw0rd" />
+  
+    <property name="initialSize" value="1" />
+    <property name="maxActive" value="20" />
+    <property name="minIdle" value="1" />
+    <property name="maxWait" value="60000" />
+    
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+    <property name="testWhileIdle" value="true" />
+    
+    <property name="defaultAutoCommit" value="false" />
+    <property name="defaultReadOnly" value="false" />
+    
+    <property name="removeAbandoned" value="true" />
+    <property name="logAbandoned" value="true" />
+    
+    <property name="removeAbandonedTimeout" value="180" />
+    <property name="maxOpenPreparedStatements" value="500" />
+    <property name="poolPreparedStatements" value="false" />
+    <property name="defaultTransactionIsolation" value="1" />
+    
+    <property name="validationQuery">
+      <value>SELECT NULL</value>
+    </property>
+  </bean>
+  
+  <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
+    <property name="typeAliasesPackage" value="com.paradm.dms.entity"></property>
+    <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+  </bean>
+  
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.paradm.dms.dao" />
+    <property name="sqlSessionFactoryBeanName" value="sessionFactory" />
+  </bean>
+  
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"></property>
+  </bean>
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+  <!-- <import resource="../redis/redis-cache.xml"/> -->
+  <!-- <import resource="../redis/spring-cache.xml"/> -->
+</beans>

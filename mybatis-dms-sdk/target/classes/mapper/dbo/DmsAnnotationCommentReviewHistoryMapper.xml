@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.DmsAnnotationCommentReviewHistoryMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistory">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="DOC_ID" jdbcType="BIGINT" property="docId" />
+    <result column="COMMENT_ID" jdbcType="BIGINT" property="commentId" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="REVIEWED_BY" jdbcType="VARCHAR" property="reviewedBy" />
+    <result column="DATE_REVIEWED" jdbcType="TIMESTAMP" property="dateReviewed" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DOC_ID, COMMENT_ID, STATUS, REVIEWED_BY, DATE_REVIEWED, RECORD_STATUS, UPDATE_COUNT, 
+    CREATOR_ID, CREATE_DATE, UPDATER_ID, UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistory">
+    insert into dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY (ID, DOC_ID, COMMENT_ID, 
+      STATUS, REVIEWED_BY, DATE_REVIEWED, 
+      RECORD_STATUS, UPDATE_COUNT, CREATOR_ID, 
+      CREATE_DATE, UPDATER_ID, UPDATE_DATE
+      )
+    values (#{id,jdbcType=BIGINT}, #{docId,jdbcType=BIGINT}, #{commentId,jdbcType=BIGINT}, 
+      #{status,jdbcType=VARCHAR}, #{reviewedBy,jdbcType=VARCHAR}, #{dateReviewed,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=CHAR}, #{updateCount,jdbcType=INTEGER}, #{creatorId,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updaterId,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistory">
+    insert into dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="docId != null">
+        DOC_ID,
+      </if>
+      <if test="commentId != null">
+        COMMENT_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="reviewedBy != null">
+        REVIEWED_BY,
+      </if>
+      <if test="dateReviewed != null">
+        DATE_REVIEWED,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="docId != null">
+        #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="commentId != null">
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewedBy != null">
+        #{reviewedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="dateReviewed != null">
+        #{dateReviewed,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY (ID, DOC_ID, COMMENT_ID, 
+      STATUS, REVIEWED_BY, DATE_REVIEWED, 
+      RECORD_STATUS, UPDATE_COUNT, CREATOR_ID, 
+      CREATE_DATE, UPDATER_ID, UPDATE_DATE
+      )
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.docId,jdbcType=BIGINT}, #{item.commentId,jdbcType=BIGINT}, 
+        #{item.status,jdbcType=VARCHAR}, #{item.reviewedBy,jdbcType=VARCHAR}, #{item.dateReviewed,jdbcType=TIMESTAMP}, 
+        #{item.recordStatus,jdbcType=CHAR}, #{item.updateCount,jdbcType=INTEGER}, #{item.creatorId,jdbcType=BIGINT}, 
+        #{item.createDate,jdbcType=TIMESTAMP}, #{item.updaterId,jdbcType=BIGINT}, #{item.updateDate,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    (ID, DOC_ID, COMMENT_ID, STATUS, REVIEWED_BY, DATE_REVIEWED, RECORD_STATUS, UPDATE_COUNT, 
+      CREATOR_ID, CREATE_DATE, UPDATER_ID, UPDATE_DATE)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.docId != null">
+          #{item.docId,jdbcType=BIGINT},
+        </if>
+        <if test="item.docId == null">
+          NULL,
+        </if>
+        <if test="item.commentId != null">
+          #{item.commentId,jdbcType=BIGINT},
+        </if>
+        <if test="item.commentId == null">
+          NULL,
+        </if>
+        <if test="item.status != null">
+          #{item.status,jdbcType=VARCHAR},
+        </if>
+        <if test="item.status == null">
+          NULL,
+        </if>
+        <if test="item.reviewedBy != null">
+          #{item.reviewedBy,jdbcType=VARCHAR},
+        </if>
+        <if test="item.reviewedBy == null">
+          NULL,
+        </if>
+        <if test="item.dateReviewed != null">
+          #{item.dateReviewed,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.dateReviewed == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.docId != null">
+        DOC_ID = #{record.docId,jdbcType=BIGINT},
+      </if>
+      <if test="record.commentId != null">
+        COMMENT_ID = #{record.commentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewedBy != null">
+        REVIEWED_BY = #{record.reviewedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dateReviewed != null">
+        DATE_REVIEWED = #{record.dateReviewed,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    set ID = #{record.id,jdbcType=BIGINT},
+      DOC_ID = #{record.docId,jdbcType=BIGINT},
+      COMMENT_ID = #{record.commentId,jdbcType=BIGINT},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      REVIEWED_BY = #{record.reviewedBy,jdbcType=VARCHAR},
+      DATE_REVIEWED = #{record.dateReviewed,jdbcType=TIMESTAMP},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistory">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <set>
+      <if test="docId != null">
+        DOC_ID = #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="commentId != null">
+        COMMENT_ID = #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewedBy != null">
+        REVIEWED_BY = #{reviewedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="dateReviewed != null">
+        DATE_REVIEWED = #{dateReviewed,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.DmsAnnotationCommentReviewHistory">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    set DOC_ID = #{docId,jdbcType=BIGINT},
+      COMMENT_ID = #{commentId,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=VARCHAR},
+      REVIEWED_BY = #{reviewedBy,jdbcType=VARCHAR},
+      DATE_REVIEWED = #{dateReviewed,jdbcType=TIMESTAMP},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null">
+            when id = #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COMMENT_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.commentId != null">
+            when id = #{item.id} then #{item.commentId}
+          </if>
+          <if test="item.commentId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.COMMENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.status != null">
+            when id = #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="REVIEWED_BY =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.reviewedBy != null">
+            when id = #{item.id} then #{item.reviewedBy}
+          </if>
+          <if test="item.reviewedBy == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.REVIEWED_BY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DATE_REVIEWED =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.dateReviewed != null">
+            when id = #{item.id} then #{item.dateReviewed}
+          </if>
+          <if test="item.dateReviewed == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DATE_REVIEWED
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COMMENT_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.commentId != null ">
+            when  #{item.id} then #{item.commentId}
+          </if>
+          <if test="item.commentId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.COMMENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.status != null ">
+            when  #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="REVIEWED_BY =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.reviewedBy != null ">
+            when  #{item.id} then #{item.reviewedBy}
+          </if>
+          <if test="item.reviewedBy == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.REVIEWED_BY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DATE_REVIEWED =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.dateReviewed != null ">
+            when  #{item.id} then #{item.dateReviewed}
+          </if>
+          <if test="item.dateReviewed == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DATE_REVIEWED
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.docId}
+        </foreach>
+      </trim>
+      <trim prefix="commentId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.commentId}
+        </foreach>
+      </trim>
+      <trim prefix="status =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.status}
+        </foreach>
+      </trim>
+      <trim prefix="reviewedBy =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.reviewedBy}
+        </foreach>
+      </trim>
+      <trim prefix="dateReviewed =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.dateReviewed}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="commentId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.commentId != null ">
+            when  #{item.id} then #{item.commentId}
+          </if>
+          <if test="item.commentId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.COMMENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="status =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.status != null ">
+            when  #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="reviewedBy =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.reviewedBy != null ">
+            when  #{item.id} then #{item.reviewedBy}
+          </if>
+          <if test="item.reviewedBy == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.REVIEWED_BY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="dateReviewed =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.dateReviewed != null ">
+            when  #{item.id} then #{item.dateReviewed}
+          </if>
+          <if test="item.dateReviewed == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.DATE_REVIEWED
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION_COMMENT_REVIEW_HISTORY.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

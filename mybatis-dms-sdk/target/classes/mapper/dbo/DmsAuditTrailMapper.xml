@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.DmsAuditTrailMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.DmsAuditTrail">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="DOC_ID" jdbcType="BIGINT" property="docId" />
+    <result column="ROOT_ID" jdbcType="BIGINT" property="rootId" />
+    <result column="DOC_NAME" jdbcType="VARCHAR" property="docName" />
+    <result column="LOCATION" jdbcType="VARCHAR" property="location" />
+    <result column="ACCESSOR" jdbcType="BIGINT" property="accessor" />
+    <result column="ACCESS_TYPE" jdbcType="CHAR" property="accessType" />
+    <result column="ACCESS_DATE" jdbcType="TIMESTAMP" property="accessDate" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DOC_ID, ROOT_ID, DOC_NAME, LOCATION, ACCESSOR, ACCESS_TYPE, ACCESS_DATE, IP_ADDRESS, 
+    DESCRIPTION, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.DmsAuditTrailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.DMS_AUDIT_TRAIL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.DMS_AUDIT_TRAIL
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.DMS_AUDIT_TRAIL
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.DmsAuditTrail">
+    insert into dbo.DMS_AUDIT_TRAIL (ID, DOC_ID, ROOT_ID, 
+      DOC_NAME, LOCATION, ACCESSOR, 
+      ACCESS_TYPE, ACCESS_DATE, IP_ADDRESS, 
+      DESCRIPTION, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values (#{id,jdbcType=BIGINT}, #{docId,jdbcType=BIGINT}, #{rootId,jdbcType=BIGINT}, 
+      #{docName,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{accessor,jdbcType=BIGINT}, 
+      #{accessType,jdbcType=CHAR}, #{accessDate,jdbcType=TIMESTAMP}, #{ipAddress,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{recordStatus,jdbcType=CHAR}, #{creatorId,jdbcType=BIGINT}, 
+      #{updaterId,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.DmsAuditTrail">
+    insert into dbo.DMS_AUDIT_TRAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="docId != null">
+        DOC_ID,
+      </if>
+      <if test="rootId != null">
+        ROOT_ID,
+      </if>
+      <if test="docName != null">
+        DOC_NAME,
+      </if>
+      <if test="location != null">
+        LOCATION,
+      </if>
+      <if test="accessor != null">
+        ACCESSOR,
+      </if>
+      <if test="accessType != null">
+        ACCESS_TYPE,
+      </if>
+      <if test="accessDate != null">
+        ACCESS_DATE,
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="docId != null">
+        #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="rootId != null">
+        #{rootId,jdbcType=BIGINT},
+      </if>
+      <if test="docName != null">
+        #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="accessor != null">
+        #{accessor,jdbcType=BIGINT},
+      </if>
+      <if test="accessType != null">
+        #{accessType,jdbcType=CHAR},
+      </if>
+      <if test="accessDate != null">
+        #{accessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.DMS_AUDIT_TRAIL (ID, DOC_ID, ROOT_ID, 
+      DOC_NAME, LOCATION, ACCESSOR, 
+      ACCESS_TYPE, ACCESS_DATE, IP_ADDRESS, 
+      DESCRIPTION, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.docId,jdbcType=BIGINT}, #{item.rootId,jdbcType=BIGINT}, 
+        #{item.docName,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.accessor,jdbcType=BIGINT}, 
+        #{item.accessType,jdbcType=CHAR}, #{item.accessDate,jdbcType=TIMESTAMP}, #{item.ipAddress,jdbcType=VARCHAR}, 
+        #{item.description,jdbcType=VARCHAR}, #{item.recordStatus,jdbcType=CHAR}, #{item.creatorId,jdbcType=BIGINT}, 
+        #{item.updaterId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updateDate,jdbcType=TIMESTAMP}, 
+        #{item.updateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.DMS_AUDIT_TRAIL
+    (ID, DOC_ID, ROOT_ID, DOC_NAME, LOCATION, ACCESSOR, ACCESS_TYPE, ACCESS_DATE, IP_ADDRESS, 
+      DESCRIPTION, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+      )
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.docId != null">
+          #{item.docId,jdbcType=BIGINT},
+        </if>
+        <if test="item.docId == null">
+          NULL,
+        </if>
+        <if test="item.rootId != null">
+          #{item.rootId,jdbcType=BIGINT},
+        </if>
+        <if test="item.rootId == null">
+          NULL,
+        </if>
+        <if test="item.docName != null">
+          #{item.docName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.docName == null">
+          NULL,
+        </if>
+        <if test="item.location != null">
+          #{item.location,jdbcType=VARCHAR},
+        </if>
+        <if test="item.location == null">
+          NULL,
+        </if>
+        <if test="item.accessor != null">
+          #{item.accessor,jdbcType=BIGINT},
+        </if>
+        <if test="item.accessor == null">
+          NULL,
+        </if>
+        <if test="item.accessType != null">
+          #{item.accessType,jdbcType=CHAR},
+        </if>
+        <if test="item.accessType == null">
+          NULL,
+        </if>
+        <if test="item.accessDate != null">
+          #{item.accessDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.accessDate == null">
+          NULL,
+        </if>
+        <if test="item.ipAddress != null">
+          #{item.ipAddress,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ipAddress == null">
+          NULL,
+        </if>
+        <if test="item.description != null">
+          #{item.description,jdbcType=VARCHAR},
+        </if>
+        <if test="item.description == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.DMS_AUDIT_TRAIL
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.docId != null">
+        DOC_ID = #{record.docId,jdbcType=BIGINT},
+      </if>
+      <if test="record.rootId != null">
+        ROOT_ID = #{record.rootId,jdbcType=BIGINT},
+      </if>
+      <if test="record.docName != null">
+        DOC_NAME = #{record.docName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        LOCATION = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessor != null">
+        ACCESSOR = #{record.accessor,jdbcType=BIGINT},
+      </if>
+      <if test="record.accessType != null">
+        ACCESS_TYPE = #{record.accessType,jdbcType=CHAR},
+      </if>
+      <if test="record.accessDate != null">
+        ACCESS_DATE = #{record.accessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ipAddress != null">
+        IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.DMS_AUDIT_TRAIL
+    set ID = #{record.id,jdbcType=BIGINT},
+      DOC_ID = #{record.docId,jdbcType=BIGINT},
+      ROOT_ID = #{record.rootId,jdbcType=BIGINT},
+      DOC_NAME = #{record.docName,jdbcType=VARCHAR},
+      LOCATION = #{record.location,jdbcType=VARCHAR},
+      ACCESSOR = #{record.accessor,jdbcType=BIGINT},
+      ACCESS_TYPE = #{record.accessType,jdbcType=CHAR},
+      ACCESS_DATE = #{record.accessDate,jdbcType=TIMESTAMP},
+      IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.DmsAuditTrail">
+    update dbo.DMS_AUDIT_TRAIL
+    <set>
+      <if test="docId != null">
+        DOC_ID = #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="rootId != null">
+        ROOT_ID = #{rootId,jdbcType=BIGINT},
+      </if>
+      <if test="docName != null">
+        DOC_NAME = #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        LOCATION = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="accessor != null">
+        ACCESSOR = #{accessor,jdbcType=BIGINT},
+      </if>
+      <if test="accessType != null">
+        ACCESS_TYPE = #{accessType,jdbcType=CHAR},
+      </if>
+      <if test="accessDate != null">
+        ACCESS_DATE = #{accessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.DmsAuditTrail">
+    update dbo.DMS_AUDIT_TRAIL
+    set DOC_ID = #{docId,jdbcType=BIGINT},
+      ROOT_ID = #{rootId,jdbcType=BIGINT},
+      DOC_NAME = #{docName,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      ACCESSOR = #{accessor,jdbcType=BIGINT},
+      ACCESS_TYPE = #{accessType,jdbcType=CHAR},
+      ACCESS_DATE = #{accessDate,jdbcType=TIMESTAMP},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.DMS_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null">
+            when id = #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ROOT_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.rootId != null">
+            when id = #{item.id} then #{item.rootId}
+          </if>
+          <if test="item.rootId == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.ROOT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DOC_NAME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docName != null">
+            when id = #{item.id} then #{item.docName}
+          </if>
+          <if test="item.docName == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOCATION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.location != null">
+            when id = #{item.id} then #{item.location}
+          </if>
+          <if test="item.location == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.LOCATION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESSOR =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessor != null">
+            when id = #{item.id} then #{item.accessor}
+          </if>
+          <if test="item.accessor == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESSOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_TYPE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessType != null">
+            when id = #{item.id} then #{item.accessType}
+          </if>
+          <if test="item.accessType == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessDate != null">
+            when id = #{item.id} then #{item.accessDate}
+          </if>
+          <if test="item.accessDate == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IP_ADDRESS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null">
+            when id = #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null">
+            when id = #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.DMS_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ROOT_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.rootId != null ">
+            when  #{item.id} then #{item.rootId}
+          </if>
+          <if test="item.rootId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ROOT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DOC_NAME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docName != null ">
+            when  #{item.id} then #{item.docName}
+          </if>
+          <if test="item.docName == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOCATION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.location != null ">
+            when  #{item.id} then #{item.location}
+          </if>
+          <if test="item.location == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.LOCATION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESSOR =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessor != null ">
+            when  #{item.id} then #{item.accessor}
+          </if>
+          <if test="item.accessor == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESSOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_TYPE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessType != null ">
+            when  #{item.id} then #{item.accessType}
+          </if>
+          <if test="item.accessType == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessDate != null ">
+            when  #{item.id} then #{item.accessDate}
+          </if>
+          <if test="item.accessDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IP_ADDRESS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null ">
+            when  #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.DMS_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.docId}
+        </foreach>
+      </trim>
+      <trim prefix="rootId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.rootId}
+        </foreach>
+      </trim>
+      <trim prefix="docName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.docName}
+        </foreach>
+      </trim>
+      <trim prefix="location =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.location}
+        </foreach>
+      </trim>
+      <trim prefix="accessor =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.accessor}
+        </foreach>
+      </trim>
+      <trim prefix="accessType =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.accessType}
+        </foreach>
+      </trim>
+      <trim prefix="accessDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.accessDate}
+        </foreach>
+      </trim>
+      <trim prefix="ipAddress =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.ipAddress}
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.description}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.DMS_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="rootId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.rootId != null ">
+            when  #{item.id} then #{item.rootId}
+          </if>
+          <if test="item.rootId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ROOT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="docName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.docName != null ">
+            when  #{item.id} then #{item.docName}
+          </if>
+          <if test="item.docName == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DOC_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="location =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.location != null ">
+            when  #{item.id} then #{item.location}
+          </if>
+          <if test="item.location == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.LOCATION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="accessor =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.accessor != null ">
+            when  #{item.id} then #{item.accessor}
+          </if>
+          <if test="item.accessor == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESSOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="accessType =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.accessType != null ">
+            when  #{item.id} then #{item.accessType}
+          </if>
+          <if test="item.accessType == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="accessDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.accessDate != null ">
+            when  #{item.id} then #{item.accessDate}
+          </if>
+          <if test="item.accessDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.ACCESS_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ipAddress =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null ">
+            when  #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

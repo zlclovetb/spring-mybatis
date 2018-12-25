@@ -1,0 +1,1403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.TaskRecordMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.TaskRecord">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="WSP_ID" jdbcType="BIGINT" property="wspId" />
+    <result column="TASK_PROJECT_ID" jdbcType="BIGINT" property="taskProjectId" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="IS_PUBLIC" jdbcType="CHAR" property="isPublic" />
+    <result column="TASK_TYPE" jdbcType="CHAR" property="taskType" />
+    <result column="DUE_DATE" jdbcType="TIMESTAMP" property="dueDate" />
+    <result column="SORT" jdbcType="INTEGER" property="sort" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="PRIORITY" jdbcType="CHAR" property="priority" />
+    <result column="TASK_COLUMN_ID" jdbcType="BIGINT" property="taskColumnId" />
+    <result column="APPROVAL_ORG_ID" jdbcType="BIGINT" property="approvalOrgId" />
+    <result column="LOCK_ORG_ID" jdbcType="BIGINT" property="lockOrgId" />
+    <result column="ACTORID" jdbcType="BIGINT" property="actorid" />
+    <result column="HAVE_ATTACHMENT" jdbcType="CHAR" property="haveAttachment" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, WSP_ID, TASK_PROJECT_ID, TASK_NAME, DESCRIPTION, IS_PUBLIC, TASK_TYPE, DUE_DATE, 
+    SORT, STATUS, PRIORITY, TASK_COLUMN_ID, APPROVAL_ORG_ID, LOCK_ORG_ID, ACTORID, HAVE_ATTACHMENT, 
+    RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.TaskRecordExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.TASK_RECORD
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.TASK_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.TASK_RECORD
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.TaskRecord">
+    insert into dbo.TASK_RECORD (ID, WSP_ID, TASK_PROJECT_ID, 
+      TASK_NAME, DESCRIPTION, IS_PUBLIC, 
+      TASK_TYPE, DUE_DATE, SORT, 
+      STATUS, PRIORITY, TASK_COLUMN_ID, 
+      APPROVAL_ORG_ID, LOCK_ORG_ID, ACTORID, 
+      HAVE_ATTACHMENT, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values (#{id,jdbcType=BIGINT}, #{wspId,jdbcType=BIGINT}, #{taskProjectId,jdbcType=BIGINT}, 
+      #{taskName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{isPublic,jdbcType=CHAR}, 
+      #{taskType,jdbcType=CHAR}, #{dueDate,jdbcType=TIMESTAMP}, #{sort,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{priority,jdbcType=CHAR}, #{taskColumnId,jdbcType=BIGINT}, 
+      #{approvalOrgId,jdbcType=BIGINT}, #{lockOrgId,jdbcType=BIGINT}, #{actorid,jdbcType=BIGINT}, 
+      #{haveAttachment,jdbcType=CHAR}, #{recordStatus,jdbcType=CHAR}, #{creatorId,jdbcType=BIGINT}, 
+      #{updaterId,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.TaskRecord">
+    insert into dbo.TASK_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="wspId != null">
+        WSP_ID,
+      </if>
+      <if test="taskProjectId != null">
+        TASK_PROJECT_ID,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="isPublic != null">
+        IS_PUBLIC,
+      </if>
+      <if test="taskType != null">
+        TASK_TYPE,
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="taskColumnId != null">
+        TASK_COLUMN_ID,
+      </if>
+      <if test="approvalOrgId != null">
+        APPROVAL_ORG_ID,
+      </if>
+      <if test="lockOrgId != null">
+        LOCK_ORG_ID,
+      </if>
+      <if test="actorid != null">
+        ACTORID,
+      </if>
+      <if test="haveAttachment != null">
+        HAVE_ATTACHMENT,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="wspId != null">
+        #{wspId,jdbcType=BIGINT},
+      </if>
+      <if test="taskProjectId != null">
+        #{taskProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=CHAR},
+      </if>
+      <if test="dueDate != null">
+        #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=CHAR},
+      </if>
+      <if test="taskColumnId != null">
+        #{taskColumnId,jdbcType=BIGINT},
+      </if>
+      <if test="approvalOrgId != null">
+        #{approvalOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="lockOrgId != null">
+        #{lockOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="actorid != null">
+        #{actorid,jdbcType=BIGINT},
+      </if>
+      <if test="haveAttachment != null">
+        #{haveAttachment,jdbcType=CHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.TASK_RECORD (ID, WSP_ID, TASK_PROJECT_ID, 
+      TASK_NAME, DESCRIPTION, IS_PUBLIC, 
+      TASK_TYPE, DUE_DATE, SORT, 
+      STATUS, PRIORITY, TASK_COLUMN_ID, 
+      APPROVAL_ORG_ID, LOCK_ORG_ID, ACTORID, 
+      HAVE_ATTACHMENT, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.wspId,jdbcType=BIGINT}, #{item.taskProjectId,jdbcType=BIGINT}, 
+        #{item.taskName,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, #{item.isPublic,jdbcType=CHAR}, 
+        #{item.taskType,jdbcType=CHAR}, #{item.dueDate,jdbcType=TIMESTAMP}, #{item.sort,jdbcType=INTEGER}, 
+        #{item.status,jdbcType=CHAR}, #{item.priority,jdbcType=CHAR}, #{item.taskColumnId,jdbcType=BIGINT}, 
+        #{item.approvalOrgId,jdbcType=BIGINT}, #{item.lockOrgId,jdbcType=BIGINT}, #{item.actorid,jdbcType=BIGINT}, 
+        #{item.haveAttachment,jdbcType=CHAR}, #{item.recordStatus,jdbcType=CHAR}, #{item.creatorId,jdbcType=BIGINT}, 
+        #{item.updaterId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updateDate,jdbcType=TIMESTAMP}, 
+        #{item.updateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.TASK_RECORD
+    (ID, WSP_ID, TASK_PROJECT_ID, TASK_NAME, DESCRIPTION, IS_PUBLIC, TASK_TYPE, DUE_DATE, 
+      SORT, STATUS, PRIORITY, TASK_COLUMN_ID, APPROVAL_ORG_ID, LOCK_ORG_ID, ACTORID, 
+      HAVE_ATTACHMENT, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.wspId != null">
+          #{item.wspId,jdbcType=BIGINT},
+        </if>
+        <if test="item.wspId == null">
+          NULL,
+        </if>
+        <if test="item.taskProjectId != null">
+          #{item.taskProjectId,jdbcType=BIGINT},
+        </if>
+        <if test="item.taskProjectId == null">
+          NULL,
+        </if>
+        <if test="item.taskName != null">
+          #{item.taskName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.taskName == null">
+          NULL,
+        </if>
+        <if test="item.description != null">
+          #{item.description,jdbcType=VARCHAR},
+        </if>
+        <if test="item.description == null">
+          NULL,
+        </if>
+        <if test="item.isPublic != null">
+          #{item.isPublic,jdbcType=CHAR},
+        </if>
+        <if test="item.isPublic == null">
+          NULL,
+        </if>
+        <if test="item.taskType != null">
+          #{item.taskType,jdbcType=CHAR},
+        </if>
+        <if test="item.taskType == null">
+          NULL,
+        </if>
+        <if test="item.dueDate != null">
+          #{item.dueDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.dueDate == null">
+          NULL,
+        </if>
+        <if test="item.sort != null">
+          #{item.sort,jdbcType=INTEGER},
+        </if>
+        <if test="item.sort == null">
+          NULL,
+        </if>
+        <if test="item.status != null">
+          #{item.status,jdbcType=CHAR},
+        </if>
+        <if test="item.status == null">
+          NULL,
+        </if>
+        <if test="item.priority != null">
+          #{item.priority,jdbcType=CHAR},
+        </if>
+        <if test="item.priority == null">
+          NULL,
+        </if>
+        <if test="item.taskColumnId != null">
+          #{item.taskColumnId,jdbcType=BIGINT},
+        </if>
+        <if test="item.taskColumnId == null">
+          NULL,
+        </if>
+        <if test="item.approvalOrgId != null">
+          #{item.approvalOrgId,jdbcType=BIGINT},
+        </if>
+        <if test="item.approvalOrgId == null">
+          NULL,
+        </if>
+        <if test="item.lockOrgId != null">
+          #{item.lockOrgId,jdbcType=BIGINT},
+        </if>
+        <if test="item.lockOrgId == null">
+          NULL,
+        </if>
+        <if test="item.actorid != null">
+          #{item.actorid,jdbcType=BIGINT},
+        </if>
+        <if test="item.actorid == null">
+          NULL,
+        </if>
+        <if test="item.haveAttachment != null">
+          #{item.haveAttachment,jdbcType=CHAR},
+        </if>
+        <if test="item.haveAttachment == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.TASK_RECORD
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.wspId != null">
+        WSP_ID = #{record.wspId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskProjectId != null">
+        TASK_PROJECT_ID = #{record.taskProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskName != null">
+        TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPublic != null">
+        IS_PUBLIC = #{record.isPublic,jdbcType=CHAR},
+      </if>
+      <if test="record.taskType != null">
+        TASK_TYPE = #{record.taskType,jdbcType=CHAR},
+      </if>
+      <if test="record.dueDate != null">
+        DUE_DATE = #{record.dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sort != null">
+        SORT = #{record.sort,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.priority != null">
+        PRIORITY = #{record.priority,jdbcType=CHAR},
+      </if>
+      <if test="record.taskColumnId != null">
+        TASK_COLUMN_ID = #{record.taskColumnId,jdbcType=BIGINT},
+      </if>
+      <if test="record.approvalOrgId != null">
+        APPROVAL_ORG_ID = #{record.approvalOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.lockOrgId != null">
+        LOCK_ORG_ID = #{record.lockOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.actorid != null">
+        ACTORID = #{record.actorid,jdbcType=BIGINT},
+      </if>
+      <if test="record.haveAttachment != null">
+        HAVE_ATTACHMENT = #{record.haveAttachment,jdbcType=CHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.TASK_RECORD
+    set ID = #{record.id,jdbcType=BIGINT},
+      WSP_ID = #{record.wspId,jdbcType=BIGINT},
+      TASK_PROJECT_ID = #{record.taskProjectId,jdbcType=BIGINT},
+      TASK_NAME = #{record.taskName,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      IS_PUBLIC = #{record.isPublic,jdbcType=CHAR},
+      TASK_TYPE = #{record.taskType,jdbcType=CHAR},
+      DUE_DATE = #{record.dueDate,jdbcType=TIMESTAMP},
+      SORT = #{record.sort,jdbcType=INTEGER},
+      STATUS = #{record.status,jdbcType=CHAR},
+      PRIORITY = #{record.priority,jdbcType=CHAR},
+      TASK_COLUMN_ID = #{record.taskColumnId,jdbcType=BIGINT},
+      APPROVAL_ORG_ID = #{record.approvalOrgId,jdbcType=BIGINT},
+      LOCK_ORG_ID = #{record.lockOrgId,jdbcType=BIGINT},
+      ACTORID = #{record.actorid,jdbcType=BIGINT},
+      HAVE_ATTACHMENT = #{record.haveAttachment,jdbcType=CHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.TaskRecord">
+    update dbo.TASK_RECORD
+    <set>
+      <if test="wspId != null">
+        WSP_ID = #{wspId,jdbcType=BIGINT},
+      </if>
+      <if test="taskProjectId != null">
+        TASK_PROJECT_ID = #{taskProjectId,jdbcType=BIGINT},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null">
+        IS_PUBLIC = #{isPublic,jdbcType=CHAR},
+      </if>
+      <if test="taskType != null">
+        TASK_TYPE = #{taskType,jdbcType=CHAR},
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE = #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=CHAR},
+      </if>
+      <if test="taskColumnId != null">
+        TASK_COLUMN_ID = #{taskColumnId,jdbcType=BIGINT},
+      </if>
+      <if test="approvalOrgId != null">
+        APPROVAL_ORG_ID = #{approvalOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="lockOrgId != null">
+        LOCK_ORG_ID = #{lockOrgId,jdbcType=BIGINT},
+      </if>
+      <if test="actorid != null">
+        ACTORID = #{actorid,jdbcType=BIGINT},
+      </if>
+      <if test="haveAttachment != null">
+        HAVE_ATTACHMENT = #{haveAttachment,jdbcType=CHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.TaskRecord">
+    update dbo.TASK_RECORD
+    set WSP_ID = #{wspId,jdbcType=BIGINT},
+      TASK_PROJECT_ID = #{taskProjectId,jdbcType=BIGINT},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      IS_PUBLIC = #{isPublic,jdbcType=CHAR},
+      TASK_TYPE = #{taskType,jdbcType=CHAR},
+      DUE_DATE = #{dueDate,jdbcType=TIMESTAMP},
+      SORT = #{sort,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=CHAR},
+      PRIORITY = #{priority,jdbcType=CHAR},
+      TASK_COLUMN_ID = #{taskColumnId,jdbcType=BIGINT},
+      APPROVAL_ORG_ID = #{approvalOrgId,jdbcType=BIGINT},
+      LOCK_ORG_ID = #{lockOrgId,jdbcType=BIGINT},
+      ACTORID = #{actorid,jdbcType=BIGINT},
+      HAVE_ATTACHMENT = #{haveAttachment,jdbcType=CHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.TASK_RECORD
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="WSP_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.wspId != null">
+            when id = #{item.id} then #{item.wspId}
+          </if>
+          <if test="item.wspId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.WSP_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_PROJECT_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskProjectId != null">
+            when id = #{item.id} then #{item.taskProjectId}
+          </if>
+          <if test="item.taskProjectId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.TASK_PROJECT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_NAME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskName != null">
+            when id = #{item.id} then #{item.taskName}
+          </if>
+          <if test="item.taskName == null">
+            when id = #{item.id} then dbo.TASK_RECORD.TASK_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null">
+            when id = #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null">
+            when id = #{item.id} then dbo.TASK_RECORD.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IS_PUBLIC =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.isPublic != null">
+            when id = #{item.id} then #{item.isPublic}
+          </if>
+          <if test="item.isPublic == null">
+            when id = #{item.id} then dbo.TASK_RECORD.IS_PUBLIC
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_TYPE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskType != null">
+            when id = #{item.id} then #{item.taskType}
+          </if>
+          <if test="item.taskType == null">
+            when id = #{item.id} then dbo.TASK_RECORD.TASK_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DUE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.dueDate != null">
+            when id = #{item.id} then #{item.dueDate}
+          </if>
+          <if test="item.dueDate == null">
+            when id = #{item.id} then dbo.TASK_RECORD.DUE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SORT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sort != null">
+            when id = #{item.id} then #{item.sort}
+          </if>
+          <if test="item.sort == null">
+            when id = #{item.id} then dbo.TASK_RECORD.SORT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.status != null">
+            when id = #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null">
+            when id = #{item.id} then dbo.TASK_RECORD.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PRIORITY =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.priority != null">
+            when id = #{item.id} then #{item.priority}
+          </if>
+          <if test="item.priority == null">
+            when id = #{item.id} then dbo.TASK_RECORD.PRIORITY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_COLUMN_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskColumnId != null">
+            when id = #{item.id} then #{item.taskColumnId}
+          </if>
+          <if test="item.taskColumnId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.TASK_COLUMN_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="APPROVAL_ORG_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.approvalOrgId != null">
+            when id = #{item.id} then #{item.approvalOrgId}
+          </if>
+          <if test="item.approvalOrgId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.APPROVAL_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOCK_ORG_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.lockOrgId != null">
+            when id = #{item.id} then #{item.lockOrgId}
+          </if>
+          <if test="item.lockOrgId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.LOCK_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACTORID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.actorid != null">
+            when id = #{item.id} then #{item.actorid}
+          </if>
+          <if test="item.actorid == null">
+            when id = #{item.id} then dbo.TASK_RECORD.ACTORID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="HAVE_ATTACHMENT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.haveAttachment != null">
+            when id = #{item.id} then #{item.haveAttachment}
+          </if>
+          <if test="item.haveAttachment == null">
+            when id = #{item.id} then dbo.TASK_RECORD.HAVE_ATTACHMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.TASK_RECORD.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.TASK_RECORD.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.TASK_RECORD.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.TASK_RECORD.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.TASK_RECORD.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.TASK_RECORD
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="WSP_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.wspId != null ">
+            when  #{item.id} then #{item.wspId}
+          </if>
+          <if test="item.wspId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.WSP_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_PROJECT_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskProjectId != null ">
+            when  #{item.id} then #{item.taskProjectId}
+          </if>
+          <if test="item.taskProjectId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_PROJECT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_NAME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskName != null ">
+            when  #{item.id} then #{item.taskName}
+          </if>
+          <if test="item.taskName == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.TASK_RECORD.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IS_PUBLIC =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.isPublic != null ">
+            when  #{item.id} then #{item.isPublic}
+          </if>
+          <if test="item.isPublic == null ">
+            when  #{item.id} then dbo.TASK_RECORD.IS_PUBLIC
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_TYPE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskType != null ">
+            when  #{item.id} then #{item.taskType}
+          </if>
+          <if test="item.taskType == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DUE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.dueDate != null ">
+            when  #{item.id} then #{item.dueDate}
+          </if>
+          <if test="item.dueDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.DUE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SORT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sort != null ">
+            when  #{item.id} then #{item.sort}
+          </if>
+          <if test="item.sort == null ">
+            when  #{item.id} then dbo.TASK_RECORD.SORT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.status != null ">
+            when  #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null ">
+            when  #{item.id} then dbo.TASK_RECORD.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PRIORITY =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.priority != null ">
+            when  #{item.id} then #{item.priority}
+          </if>
+          <if test="item.priority == null ">
+            when  #{item.id} then dbo.TASK_RECORD.PRIORITY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TASK_COLUMN_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.taskColumnId != null ">
+            when  #{item.id} then #{item.taskColumnId}
+          </if>
+          <if test="item.taskColumnId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_COLUMN_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="APPROVAL_ORG_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.approvalOrgId != null ">
+            when  #{item.id} then #{item.approvalOrgId}
+          </if>
+          <if test="item.approvalOrgId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.APPROVAL_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOCK_ORG_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.lockOrgId != null ">
+            when  #{item.id} then #{item.lockOrgId}
+          </if>
+          <if test="item.lockOrgId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.LOCK_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACTORID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.actorid != null ">
+            when  #{item.id} then #{item.actorid}
+          </if>
+          <if test="item.actorid == null ">
+            when  #{item.id} then dbo.TASK_RECORD.ACTORID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="HAVE_ATTACHMENT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.haveAttachment != null ">
+            when  #{item.id} then #{item.haveAttachment}
+          </if>
+          <if test="item.haveAttachment == null ">
+            when  #{item.id} then dbo.TASK_RECORD.HAVE_ATTACHMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.TASK_RECORD.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.TASK_RECORD
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="wspId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.wspId}
+        </foreach>
+      </trim>
+      <trim prefix="taskProjectId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.taskProjectId}
+        </foreach>
+      </trim>
+      <trim prefix="taskName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.taskName}
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.description}
+        </foreach>
+      </trim>
+      <trim prefix="isPublic =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.isPublic}
+        </foreach>
+      </trim>
+      <trim prefix="taskType =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.taskType}
+        </foreach>
+      </trim>
+      <trim prefix="dueDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.dueDate}
+        </foreach>
+      </trim>
+      <trim prefix="sort =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.sort}
+        </foreach>
+      </trim>
+      <trim prefix="status =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.status}
+        </foreach>
+      </trim>
+      <trim prefix="priority =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.priority}
+        </foreach>
+      </trim>
+      <trim prefix="taskColumnId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.taskColumnId}
+        </foreach>
+      </trim>
+      <trim prefix="approvalOrgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.approvalOrgId}
+        </foreach>
+      </trim>
+      <trim prefix="lockOrgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.lockOrgId}
+        </foreach>
+      </trim>
+      <trim prefix="actorid =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.actorid}
+        </foreach>
+      </trim>
+      <trim prefix="haveAttachment =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.haveAttachment}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.TASK_RECORD
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="wspId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.wspId != null ">
+            when  #{item.id} then #{item.wspId}
+          </if>
+          <if test="item.wspId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.WSP_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="taskProjectId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.taskProjectId != null ">
+            when  #{item.id} then #{item.taskProjectId}
+          </if>
+          <if test="item.taskProjectId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_PROJECT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="taskName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.taskName != null ">
+            when  #{item.id} then #{item.taskName}
+          </if>
+          <if test="item.taskName == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.TASK_RECORD.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="isPublic =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.isPublic != null ">
+            when  #{item.id} then #{item.isPublic}
+          </if>
+          <if test="item.isPublic == null ">
+            when  #{item.id} then dbo.TASK_RECORD.IS_PUBLIC
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="taskType =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.taskType != null ">
+            when  #{item.id} then #{item.taskType}
+          </if>
+          <if test="item.taskType == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_TYPE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="dueDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.dueDate != null ">
+            when  #{item.id} then #{item.dueDate}
+          </if>
+          <if test="item.dueDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.DUE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sort =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.sort != null ">
+            when  #{item.id} then #{item.sort}
+          </if>
+          <if test="item.sort == null ">
+            when  #{item.id} then dbo.TASK_RECORD.SORT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="status =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.status != null ">
+            when  #{item.id} then #{item.status}
+          </if>
+          <if test="item.status == null ">
+            when  #{item.id} then dbo.TASK_RECORD.STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="priority =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.priority != null ">
+            when  #{item.id} then #{item.priority}
+          </if>
+          <if test="item.priority == null ">
+            when  #{item.id} then dbo.TASK_RECORD.PRIORITY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="taskColumnId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.taskColumnId != null ">
+            when  #{item.id} then #{item.taskColumnId}
+          </if>
+          <if test="item.taskColumnId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.TASK_COLUMN_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="approvalOrgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.approvalOrgId != null ">
+            when  #{item.id} then #{item.approvalOrgId}
+          </if>
+          <if test="item.approvalOrgId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.APPROVAL_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="lockOrgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.lockOrgId != null ">
+            when  #{item.id} then #{item.lockOrgId}
+          </if>
+          <if test="item.lockOrgId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.LOCK_ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="actorid =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.actorid != null ">
+            when  #{item.id} then #{item.actorid}
+          </if>
+          <if test="item.actorid == null ">
+            when  #{item.id} then dbo.TASK_RECORD.ACTORID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="haveAttachment =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.haveAttachment != null ">
+            when  #{item.id} then #{item.haveAttachment}
+          </if>
+          <if test="item.haveAttachment == null ">
+            when  #{item.id} then dbo.TASK_RECORD.HAVE_ATTACHMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.TASK_RECORD.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.TASK_RECORD.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

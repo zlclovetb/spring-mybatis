@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.paradm</groupId>
+  <artifactId>spring-mybatis</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>mybatis-tools</module>
+    <module>mybatis-dms-sdk</module>
+  </modules>
+  
+  <properties>
+    <java-version>1.8</java-version>
+    <project.encoding>UTF-8</project.encoding>
+    <framework.version>3.2.0</framework.version>
+  </properties>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>paradm-snapshot</id>
+      <name>ParaDM Snapshot</name>
+      <url>http://192.168.23.44:8081/nexus/content/repositories/snapshots/</url>
+      <uniqueVersion>true</uniqueVersion>
+    </snapshotRepository>
+    <repository>
+      <id>paradm-release</id>
+      <name>ParaDM Release</name>
+      <url>http://192.168.23.44:8081/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>5.1.2.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>5.1.2.RELEASE</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>${java-version}</source>
+          <target>${java-version}</target>
+          <encoding>${project.encoding}</encoding>
+          <showWarnings>true</showWarnings>
+          <meminitial>128m</meminitial>
+          <maxmem>768m</maxmem>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <attach>true</attach>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

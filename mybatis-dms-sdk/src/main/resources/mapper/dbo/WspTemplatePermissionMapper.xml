@@ -1,0 +1,1577 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.WspTemplatePermissionMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.WspTemplatePermission">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ORG_ID" jdbcType="BIGINT" property="orgId" />
+    <result column="TEMPLATE_FOLDER_ID" jdbcType="BIGINT" property="templateFolderId" />
+    <result column="READ_FLAG" jdbcType="INTEGER" property="readFlag" />
+    <result column="CREATE_FOLDER_FLAG" jdbcType="INTEGER" property="createFolderFlag" />
+    <result column="CREATE_DOCUMENT_FLAG" jdbcType="INTEGER" property="createDocumentFlag" />
+    <result column="SET_ALERT_FLAG" jdbcType="INTEGER" property="setAlertFlag" />
+    <result column="RENAME_FLAG" jdbcType="INTEGER" property="renameFlag" />
+    <result column="DELETE_FLAG" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="COPY_FLAG" jdbcType="INTEGER" property="copyFlag" />
+    <result column="MOVE_FLAG" jdbcType="INTEGER" property="moveFlag" />
+    <result column="ACCESS_CONTROL_FLAG" jdbcType="INTEGER" property="accessControlFlag" />
+    <result column="AUDIT_TRAIL_FLAG" jdbcType="INTEGER" property="auditTrailFlag" />
+    <result column="DOWNLOAD_FLAG" jdbcType="INTEGER" property="downloadFlag" />
+    <result column="EDIT_INDEX_FLAG" jdbcType="INTEGER" property="editIndexFlag" />
+    <result column="UPDATE_FLAG" jdbcType="INTEGER" property="updateFlag" />
+    <result column="INVITATION_FLAG" jdbcType="INTEGER" property="invitationFlag" />
+    <result column="LIST_VERSION_FLAG" jdbcType="INTEGER" property="listVersionFlag" />
+    <result column="MUST_FLAG" jdbcType="CHAR" property="mustFlag" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORG_ID, TEMPLATE_FOLDER_ID, READ_FLAG, CREATE_FOLDER_FLAG, CREATE_DOCUMENT_FLAG, 
+    SET_ALERT_FLAG, RENAME_FLAG, DELETE_FLAG, COPY_FLAG, MOVE_FLAG, ACCESS_CONTROL_FLAG, 
+    AUDIT_TRAIL_FLAG, DOWNLOAD_FLAG, EDIT_INDEX_FLAG, UPDATE_FLAG, INVITATION_FLAG, LIST_VERSION_FLAG, 
+    MUST_FLAG, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.WspTemplatePermissionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.WSP_TEMPLATE_PERMISSION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.WSP_TEMPLATE_PERMISSION
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.WSP_TEMPLATE_PERMISSION
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.WspTemplatePermission">
+    insert into dbo.WSP_TEMPLATE_PERMISSION (ID, ORG_ID, TEMPLATE_FOLDER_ID, 
+      READ_FLAG, CREATE_FOLDER_FLAG, CREATE_DOCUMENT_FLAG, 
+      SET_ALERT_FLAG, RENAME_FLAG, DELETE_FLAG, 
+      COPY_FLAG, MOVE_FLAG, ACCESS_CONTROL_FLAG, 
+      AUDIT_TRAIL_FLAG, DOWNLOAD_FLAG, EDIT_INDEX_FLAG, 
+      UPDATE_FLAG, INVITATION_FLAG, LIST_VERSION_FLAG, 
+      MUST_FLAG, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{templateFolderId,jdbcType=BIGINT}, 
+      #{readFlag,jdbcType=INTEGER}, #{createFolderFlag,jdbcType=INTEGER}, #{createDocumentFlag,jdbcType=INTEGER}, 
+      #{setAlertFlag,jdbcType=INTEGER}, #{renameFlag,jdbcType=INTEGER}, #{deleteFlag,jdbcType=INTEGER}, 
+      #{copyFlag,jdbcType=INTEGER}, #{moveFlag,jdbcType=INTEGER}, #{accessControlFlag,jdbcType=INTEGER}, 
+      #{auditTrailFlag,jdbcType=INTEGER}, #{downloadFlag,jdbcType=INTEGER}, #{editIndexFlag,jdbcType=INTEGER}, 
+      #{updateFlag,jdbcType=INTEGER}, #{invitationFlag,jdbcType=INTEGER}, #{listVersionFlag,jdbcType=INTEGER}, 
+      #{mustFlag,jdbcType=CHAR}, #{recordStatus,jdbcType=CHAR}, #{creatorId,jdbcType=BIGINT}, 
+      #{updaterId,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.WspTemplatePermission">
+    insert into dbo.WSP_TEMPLATE_PERMISSION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orgId != null">
+        ORG_ID,
+      </if>
+      <if test="templateFolderId != null">
+        TEMPLATE_FOLDER_ID,
+      </if>
+      <if test="readFlag != null">
+        READ_FLAG,
+      </if>
+      <if test="createFolderFlag != null">
+        CREATE_FOLDER_FLAG,
+      </if>
+      <if test="createDocumentFlag != null">
+        CREATE_DOCUMENT_FLAG,
+      </if>
+      <if test="setAlertFlag != null">
+        SET_ALERT_FLAG,
+      </if>
+      <if test="renameFlag != null">
+        RENAME_FLAG,
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG,
+      </if>
+      <if test="copyFlag != null">
+        COPY_FLAG,
+      </if>
+      <if test="moveFlag != null">
+        MOVE_FLAG,
+      </if>
+      <if test="accessControlFlag != null">
+        ACCESS_CONTROL_FLAG,
+      </if>
+      <if test="auditTrailFlag != null">
+        AUDIT_TRAIL_FLAG,
+      </if>
+      <if test="downloadFlag != null">
+        DOWNLOAD_FLAG,
+      </if>
+      <if test="editIndexFlag != null">
+        EDIT_INDEX_FLAG,
+      </if>
+      <if test="updateFlag != null">
+        UPDATE_FLAG,
+      </if>
+      <if test="invitationFlag != null">
+        INVITATION_FLAG,
+      </if>
+      <if test="listVersionFlag != null">
+        LIST_VERSION_FLAG,
+      </if>
+      <if test="mustFlag != null">
+        MUST_FLAG,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="templateFolderId != null">
+        #{templateFolderId,jdbcType=BIGINT},
+      </if>
+      <if test="readFlag != null">
+        #{readFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createFolderFlag != null">
+        #{createFolderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createDocumentFlag != null">
+        #{createDocumentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="setAlertFlag != null">
+        #{setAlertFlag,jdbcType=INTEGER},
+      </if>
+      <if test="renameFlag != null">
+        #{renameFlag,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="copyFlag != null">
+        #{copyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="moveFlag != null">
+        #{moveFlag,jdbcType=INTEGER},
+      </if>
+      <if test="accessControlFlag != null">
+        #{accessControlFlag,jdbcType=INTEGER},
+      </if>
+      <if test="auditTrailFlag != null">
+        #{auditTrailFlag,jdbcType=INTEGER},
+      </if>
+      <if test="downloadFlag != null">
+        #{downloadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="editIndexFlag != null">
+        #{editIndexFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null">
+        #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="invitationFlag != null">
+        #{invitationFlag,jdbcType=INTEGER},
+      </if>
+      <if test="listVersionFlag != null">
+        #{listVersionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="mustFlag != null">
+        #{mustFlag,jdbcType=CHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.WSP_TEMPLATE_PERMISSION (ID, ORG_ID, TEMPLATE_FOLDER_ID, 
+      READ_FLAG, CREATE_FOLDER_FLAG, CREATE_DOCUMENT_FLAG, 
+      SET_ALERT_FLAG, RENAME_FLAG, DELETE_FLAG, 
+      COPY_FLAG, MOVE_FLAG, ACCESS_CONTROL_FLAG, 
+      AUDIT_TRAIL_FLAG, DOWNLOAD_FLAG, 
+      EDIT_INDEX_FLAG, UPDATE_FLAG, INVITATION_FLAG, 
+      LIST_VERSION_FLAG, MUST_FLAG, RECORD_STATUS, 
+      CREATOR_ID, UPDATER_ID, CREATE_DATE, 
+      UPDATE_DATE, UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.orgId,jdbcType=BIGINT}, #{item.templateFolderId,jdbcType=BIGINT}, 
+        #{item.readFlag,jdbcType=INTEGER}, #{item.createFolderFlag,jdbcType=INTEGER}, #{item.createDocumentFlag,jdbcType=INTEGER}, 
+        #{item.setAlertFlag,jdbcType=INTEGER}, #{item.renameFlag,jdbcType=INTEGER}, #{item.deleteFlag,jdbcType=INTEGER}, 
+        #{item.copyFlag,jdbcType=INTEGER}, #{item.moveFlag,jdbcType=INTEGER}, #{item.accessControlFlag,jdbcType=INTEGER}, 
+        #{item.auditTrailFlag,jdbcType=INTEGER}, #{item.downloadFlag,jdbcType=INTEGER}, 
+        #{item.editIndexFlag,jdbcType=INTEGER}, #{item.updateFlag,jdbcType=INTEGER}, #{item.invitationFlag,jdbcType=INTEGER}, 
+        #{item.listVersionFlag,jdbcType=INTEGER}, #{item.mustFlag,jdbcType=CHAR}, #{item.recordStatus,jdbcType=CHAR}, 
+        #{item.creatorId,jdbcType=BIGINT}, #{item.updaterId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, 
+        #{item.updateDate,jdbcType=TIMESTAMP}, #{item.updateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.WSP_TEMPLATE_PERMISSION
+    (ID, ORG_ID, TEMPLATE_FOLDER_ID, READ_FLAG, CREATE_FOLDER_FLAG, CREATE_DOCUMENT_FLAG, 
+      SET_ALERT_FLAG, RENAME_FLAG, DELETE_FLAG, COPY_FLAG, MOVE_FLAG, ACCESS_CONTROL_FLAG, 
+      AUDIT_TRAIL_FLAG, DOWNLOAD_FLAG, EDIT_INDEX_FLAG, UPDATE_FLAG, INVITATION_FLAG, 
+      LIST_VERSION_FLAG, MUST_FLAG, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, 
+      UPDATE_DATE, UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.orgId != null">
+          #{item.orgId,jdbcType=BIGINT},
+        </if>
+        <if test="item.orgId == null">
+          NULL,
+        </if>
+        <if test="item.templateFolderId != null">
+          #{item.templateFolderId,jdbcType=BIGINT},
+        </if>
+        <if test="item.templateFolderId == null">
+          NULL,
+        </if>
+        <if test="item.readFlag != null">
+          #{item.readFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.readFlag == null">
+          NULL,
+        </if>
+        <if test="item.createFolderFlag != null">
+          #{item.createFolderFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.createFolderFlag == null">
+          NULL,
+        </if>
+        <if test="item.createDocumentFlag != null">
+          #{item.createDocumentFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.createDocumentFlag == null">
+          NULL,
+        </if>
+        <if test="item.setAlertFlag != null">
+          #{item.setAlertFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.setAlertFlag == null">
+          NULL,
+        </if>
+        <if test="item.renameFlag != null">
+          #{item.renameFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.renameFlag == null">
+          NULL,
+        </if>
+        <if test="item.deleteFlag != null">
+          #{item.deleteFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.deleteFlag == null">
+          NULL,
+        </if>
+        <if test="item.copyFlag != null">
+          #{item.copyFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.copyFlag == null">
+          NULL,
+        </if>
+        <if test="item.moveFlag != null">
+          #{item.moveFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.moveFlag == null">
+          NULL,
+        </if>
+        <if test="item.accessControlFlag != null">
+          #{item.accessControlFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.accessControlFlag == null">
+          NULL,
+        </if>
+        <if test="item.auditTrailFlag != null">
+          #{item.auditTrailFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.auditTrailFlag == null">
+          NULL,
+        </if>
+        <if test="item.downloadFlag != null">
+          #{item.downloadFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.downloadFlag == null">
+          NULL,
+        </if>
+        <if test="item.editIndexFlag != null">
+          #{item.editIndexFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.editIndexFlag == null">
+          NULL,
+        </if>
+        <if test="item.updateFlag != null">
+          #{item.updateFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateFlag == null">
+          NULL,
+        </if>
+        <if test="item.invitationFlag != null">
+          #{item.invitationFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.invitationFlag == null">
+          NULL,
+        </if>
+        <if test="item.listVersionFlag != null">
+          #{item.listVersionFlag,jdbcType=INTEGER},
+        </if>
+        <if test="item.listVersionFlag == null">
+          NULL,
+        </if>
+        <if test="item.mustFlag != null">
+          #{item.mustFlag,jdbcType=CHAR},
+        </if>
+        <if test="item.mustFlag == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgId != null">
+        ORG_ID = #{record.orgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.templateFolderId != null">
+        TEMPLATE_FOLDER_ID = #{record.templateFolderId,jdbcType=BIGINT},
+      </if>
+      <if test="record.readFlag != null">
+        READ_FLAG = #{record.readFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.createFolderFlag != null">
+        CREATE_FOLDER_FLAG = #{record.createFolderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDocumentFlag != null">
+        CREATE_DOCUMENT_FLAG = #{record.createDocumentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.setAlertFlag != null">
+        SET_ALERT_FLAG = #{record.setAlertFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.renameFlag != null">
+        RENAME_FLAG = #{record.renameFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteFlag != null">
+        DELETE_FLAG = #{record.deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.copyFlag != null">
+        COPY_FLAG = #{record.copyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.moveFlag != null">
+        MOVE_FLAG = #{record.moveFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.accessControlFlag != null">
+        ACCESS_CONTROL_FLAG = #{record.accessControlFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditTrailFlag != null">
+        AUDIT_TRAIL_FLAG = #{record.auditTrailFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.downloadFlag != null">
+        DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.editIndexFlag != null">
+        EDIT_INDEX_FLAG = #{record.editIndexFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateFlag != null">
+        UPDATE_FLAG = #{record.updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.invitationFlag != null">
+        INVITATION_FLAG = #{record.invitationFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.listVersionFlag != null">
+        LIST_VERSION_FLAG = #{record.listVersionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.mustFlag != null">
+        MUST_FLAG = #{record.mustFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    set ID = #{record.id,jdbcType=BIGINT},
+      ORG_ID = #{record.orgId,jdbcType=BIGINT},
+      TEMPLATE_FOLDER_ID = #{record.templateFolderId,jdbcType=BIGINT},
+      READ_FLAG = #{record.readFlag,jdbcType=INTEGER},
+      CREATE_FOLDER_FLAG = #{record.createFolderFlag,jdbcType=INTEGER},
+      CREATE_DOCUMENT_FLAG = #{record.createDocumentFlag,jdbcType=INTEGER},
+      SET_ALERT_FLAG = #{record.setAlertFlag,jdbcType=INTEGER},
+      RENAME_FLAG = #{record.renameFlag,jdbcType=INTEGER},
+      DELETE_FLAG = #{record.deleteFlag,jdbcType=INTEGER},
+      COPY_FLAG = #{record.copyFlag,jdbcType=INTEGER},
+      MOVE_FLAG = #{record.moveFlag,jdbcType=INTEGER},
+      ACCESS_CONTROL_FLAG = #{record.accessControlFlag,jdbcType=INTEGER},
+      AUDIT_TRAIL_FLAG = #{record.auditTrailFlag,jdbcType=INTEGER},
+      DOWNLOAD_FLAG = #{record.downloadFlag,jdbcType=INTEGER},
+      EDIT_INDEX_FLAG = #{record.editIndexFlag,jdbcType=INTEGER},
+      UPDATE_FLAG = #{record.updateFlag,jdbcType=INTEGER},
+      INVITATION_FLAG = #{record.invitationFlag,jdbcType=INTEGER},
+      LIST_VERSION_FLAG = #{record.listVersionFlag,jdbcType=INTEGER},
+      MUST_FLAG = #{record.mustFlag,jdbcType=CHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.WspTemplatePermission">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <set>
+      <if test="orgId != null">
+        ORG_ID = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="templateFolderId != null">
+        TEMPLATE_FOLDER_ID = #{templateFolderId,jdbcType=BIGINT},
+      </if>
+      <if test="readFlag != null">
+        READ_FLAG = #{readFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createFolderFlag != null">
+        CREATE_FOLDER_FLAG = #{createFolderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createDocumentFlag != null">
+        CREATE_DOCUMENT_FLAG = #{createDocumentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="setAlertFlag != null">
+        SET_ALERT_FLAG = #{setAlertFlag,jdbcType=INTEGER},
+      </if>
+      <if test="renameFlag != null">
+        RENAME_FLAG = #{renameFlag,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="copyFlag != null">
+        COPY_FLAG = #{copyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="moveFlag != null">
+        MOVE_FLAG = #{moveFlag,jdbcType=INTEGER},
+      </if>
+      <if test="accessControlFlag != null">
+        ACCESS_CONTROL_FLAG = #{accessControlFlag,jdbcType=INTEGER},
+      </if>
+      <if test="auditTrailFlag != null">
+        AUDIT_TRAIL_FLAG = #{auditTrailFlag,jdbcType=INTEGER},
+      </if>
+      <if test="downloadFlag != null">
+        DOWNLOAD_FLAG = #{downloadFlag,jdbcType=INTEGER},
+      </if>
+      <if test="editIndexFlag != null">
+        EDIT_INDEX_FLAG = #{editIndexFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null">
+        UPDATE_FLAG = #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="invitationFlag != null">
+        INVITATION_FLAG = #{invitationFlag,jdbcType=INTEGER},
+      </if>
+      <if test="listVersionFlag != null">
+        LIST_VERSION_FLAG = #{listVersionFlag,jdbcType=INTEGER},
+      </if>
+      <if test="mustFlag != null">
+        MUST_FLAG = #{mustFlag,jdbcType=CHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.WspTemplatePermission">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    set ORG_ID = #{orgId,jdbcType=BIGINT},
+      TEMPLATE_FOLDER_ID = #{templateFolderId,jdbcType=BIGINT},
+      READ_FLAG = #{readFlag,jdbcType=INTEGER},
+      CREATE_FOLDER_FLAG = #{createFolderFlag,jdbcType=INTEGER},
+      CREATE_DOCUMENT_FLAG = #{createDocumentFlag,jdbcType=INTEGER},
+      SET_ALERT_FLAG = #{setAlertFlag,jdbcType=INTEGER},
+      RENAME_FLAG = #{renameFlag,jdbcType=INTEGER},
+      DELETE_FLAG = #{deleteFlag,jdbcType=INTEGER},
+      COPY_FLAG = #{copyFlag,jdbcType=INTEGER},
+      MOVE_FLAG = #{moveFlag,jdbcType=INTEGER},
+      ACCESS_CONTROL_FLAG = #{accessControlFlag,jdbcType=INTEGER},
+      AUDIT_TRAIL_FLAG = #{auditTrailFlag,jdbcType=INTEGER},
+      DOWNLOAD_FLAG = #{downloadFlag,jdbcType=INTEGER},
+      EDIT_INDEX_FLAG = #{editIndexFlag,jdbcType=INTEGER},
+      UPDATE_FLAG = #{updateFlag,jdbcType=INTEGER},
+      INVITATION_FLAG = #{invitationFlag,jdbcType=INTEGER},
+      LIST_VERSION_FLAG = #{listVersionFlag,jdbcType=INTEGER},
+      MUST_FLAG = #{mustFlag,jdbcType=CHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="ORG_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.orgId != null">
+            when id = #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TEMPLATE_FOLDER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.templateFolderId != null">
+            when id = #{item.id} then #{item.templateFolderId}
+          </if>
+          <if test="item.templateFolderId == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.TEMPLATE_FOLDER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readFlag != null">
+            when id = #{item.id} then #{item.readFlag}
+          </if>
+          <if test="item.readFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.READ_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_FOLDER_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createFolderFlag != null">
+            when id = #{item.id} then #{item.createFolderFlag}
+          </if>
+          <if test="item.createFolderFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_FOLDER_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DOCUMENT_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDocumentFlag != null">
+            when id = #{item.id} then #{item.createDocumentFlag}
+          </if>
+          <if test="item.createDocumentFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DOCUMENT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SET_ALERT_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.setAlertFlag != null">
+            when id = #{item.id} then #{item.setAlertFlag}
+          </if>
+          <if test="item.setAlertFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.SET_ALERT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RENAME_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.renameFlag != null">
+            when id = #{item.id} then #{item.renameFlag}
+          </if>
+          <if test="item.renameFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RENAME_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DELETE_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.deleteFlag != null">
+            when id = #{item.id} then #{item.deleteFlag}
+          </if>
+          <if test="item.deleteFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DELETE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COPY_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.copyFlag != null">
+            when id = #{item.id} then #{item.copyFlag}
+          </if>
+          <if test="item.copyFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.COPY_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MOVE_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.moveFlag != null">
+            when id = #{item.id} then #{item.moveFlag}
+          </if>
+          <if test="item.moveFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MOVE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_CONTROL_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessControlFlag != null">
+            when id = #{item.id} then #{item.accessControlFlag}
+          </if>
+          <if test="item.accessControlFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ACCESS_CONTROL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="AUDIT_TRAIL_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.auditTrailFlag != null">
+            when id = #{item.id} then #{item.auditTrailFlag}
+          </if>
+          <if test="item.auditTrailFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.AUDIT_TRAIL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DOWNLOAD_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.downloadFlag != null">
+            when id = #{item.id} then #{item.downloadFlag}
+          </if>
+          <if test="item.downloadFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DOWNLOAD_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="EDIT_INDEX_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.editIndexFlag != null">
+            when id = #{item.id} then #{item.editIndexFlag}
+          </if>
+          <if test="item.editIndexFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.EDIT_INDEX_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateFlag != null">
+            when id = #{item.id} then #{item.updateFlag}
+          </if>
+          <if test="item.updateFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="INVITATION_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.invitationFlag != null">
+            when id = #{item.id} then #{item.invitationFlag}
+          </if>
+          <if test="item.invitationFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.INVITATION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LIST_VERSION_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.listVersionFlag != null">
+            when id = #{item.id} then #{item.listVersionFlag}
+          </if>
+          <if test="item.listVersionFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.LIST_VERSION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MUST_FLAG =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.mustFlag != null">
+            when id = #{item.id} then #{item.mustFlag}
+          </if>
+          <if test="item.mustFlag == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MUST_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="ORG_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.orgId != null ">
+            when  #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TEMPLATE_FOLDER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.templateFolderId != null ">
+            when  #{item.id} then #{item.templateFolderId}
+          </if>
+          <if test="item.templateFolderId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.TEMPLATE_FOLDER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readFlag != null ">
+            when  #{item.id} then #{item.readFlag}
+          </if>
+          <if test="item.readFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.READ_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_FOLDER_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createFolderFlag != null ">
+            when  #{item.id} then #{item.createFolderFlag}
+          </if>
+          <if test="item.createFolderFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_FOLDER_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DOCUMENT_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDocumentFlag != null ">
+            when  #{item.id} then #{item.createDocumentFlag}
+          </if>
+          <if test="item.createDocumentFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DOCUMENT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SET_ALERT_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.setAlertFlag != null ">
+            when  #{item.id} then #{item.setAlertFlag}
+          </if>
+          <if test="item.setAlertFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.SET_ALERT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RENAME_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.renameFlag != null ">
+            when  #{item.id} then #{item.renameFlag}
+          </if>
+          <if test="item.renameFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RENAME_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DELETE_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.deleteFlag != null ">
+            when  #{item.id} then #{item.deleteFlag}
+          </if>
+          <if test="item.deleteFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DELETE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COPY_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.copyFlag != null ">
+            when  #{item.id} then #{item.copyFlag}
+          </if>
+          <if test="item.copyFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.COPY_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MOVE_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.moveFlag != null ">
+            when  #{item.id} then #{item.moveFlag}
+          </if>
+          <if test="item.moveFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MOVE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ACCESS_CONTROL_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.accessControlFlag != null ">
+            when  #{item.id} then #{item.accessControlFlag}
+          </if>
+          <if test="item.accessControlFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ACCESS_CONTROL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="AUDIT_TRAIL_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.auditTrailFlag != null ">
+            when  #{item.id} then #{item.auditTrailFlag}
+          </if>
+          <if test="item.auditTrailFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.AUDIT_TRAIL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DOWNLOAD_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.downloadFlag != null ">
+            when  #{item.id} then #{item.downloadFlag}
+          </if>
+          <if test="item.downloadFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DOWNLOAD_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="EDIT_INDEX_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.editIndexFlag != null ">
+            when  #{item.id} then #{item.editIndexFlag}
+          </if>
+          <if test="item.editIndexFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.EDIT_INDEX_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateFlag != null ">
+            when  #{item.id} then #{item.updateFlag}
+          </if>
+          <if test="item.updateFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="INVITATION_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.invitationFlag != null ">
+            when  #{item.id} then #{item.invitationFlag}
+          </if>
+          <if test="item.invitationFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.INVITATION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LIST_VERSION_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.listVersionFlag != null ">
+            when  #{item.id} then #{item.listVersionFlag}
+          </if>
+          <if test="item.listVersionFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.LIST_VERSION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MUST_FLAG =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.mustFlag != null ">
+            when  #{item.id} then #{item.mustFlag}
+          </if>
+          <if test="item.mustFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MUST_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="orgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.orgId}
+        </foreach>
+      </trim>
+      <trim prefix="templateFolderId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.templateFolderId}
+        </foreach>
+      </trim>
+      <trim prefix="readFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.readFlag}
+        </foreach>
+      </trim>
+      <trim prefix="createFolderFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createFolderFlag}
+        </foreach>
+      </trim>
+      <trim prefix="createDocumentFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDocumentFlag}
+        </foreach>
+      </trim>
+      <trim prefix="setAlertFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.setAlertFlag}
+        </foreach>
+      </trim>
+      <trim prefix="renameFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.renameFlag}
+        </foreach>
+      </trim>
+      <trim prefix="deleteFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.deleteFlag}
+        </foreach>
+      </trim>
+      <trim prefix="copyFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.copyFlag}
+        </foreach>
+      </trim>
+      <trim prefix="moveFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.moveFlag}
+        </foreach>
+      </trim>
+      <trim prefix="accessControlFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.accessControlFlag}
+        </foreach>
+      </trim>
+      <trim prefix="auditTrailFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.auditTrailFlag}
+        </foreach>
+      </trim>
+      <trim prefix="downloadFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.downloadFlag}
+        </foreach>
+      </trim>
+      <trim prefix="editIndexFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.editIndexFlag}
+        </foreach>
+      </trim>
+      <trim prefix="updateFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateFlag}
+        </foreach>
+      </trim>
+      <trim prefix="invitationFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.invitationFlag}
+        </foreach>
+      </trim>
+      <trim prefix="listVersionFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.listVersionFlag}
+        </foreach>
+      </trim>
+      <trim prefix="mustFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.mustFlag}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.WSP_TEMPLATE_PERMISSION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="orgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.orgId != null ">
+            when  #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="templateFolderId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.templateFolderId != null ">
+            when  #{item.id} then #{item.templateFolderId}
+          </if>
+          <if test="item.templateFolderId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.TEMPLATE_FOLDER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="readFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.readFlag != null ">
+            when  #{item.id} then #{item.readFlag}
+          </if>
+          <if test="item.readFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.READ_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createFolderFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createFolderFlag != null ">
+            when  #{item.id} then #{item.createFolderFlag}
+          </if>
+          <if test="item.createFolderFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_FOLDER_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDocumentFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDocumentFlag != null ">
+            when  #{item.id} then #{item.createDocumentFlag}
+          </if>
+          <if test="item.createDocumentFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DOCUMENT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="setAlertFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.setAlertFlag != null ">
+            when  #{item.id} then #{item.setAlertFlag}
+          </if>
+          <if test="item.setAlertFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.SET_ALERT_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="renameFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.renameFlag != null ">
+            when  #{item.id} then #{item.renameFlag}
+          </if>
+          <if test="item.renameFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RENAME_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="deleteFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.deleteFlag != null ">
+            when  #{item.id} then #{item.deleteFlag}
+          </if>
+          <if test="item.deleteFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DELETE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="copyFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.copyFlag != null ">
+            when  #{item.id} then #{item.copyFlag}
+          </if>
+          <if test="item.copyFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.COPY_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="moveFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.moveFlag != null ">
+            when  #{item.id} then #{item.moveFlag}
+          </if>
+          <if test="item.moveFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MOVE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="accessControlFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.accessControlFlag != null ">
+            when  #{item.id} then #{item.accessControlFlag}
+          </if>
+          <if test="item.accessControlFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.ACCESS_CONTROL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="auditTrailFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.auditTrailFlag != null ">
+            when  #{item.id} then #{item.auditTrailFlag}
+          </if>
+          <if test="item.auditTrailFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.AUDIT_TRAIL_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="downloadFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.downloadFlag != null ">
+            when  #{item.id} then #{item.downloadFlag}
+          </if>
+          <if test="item.downloadFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.DOWNLOAD_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="editIndexFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.editIndexFlag != null ">
+            when  #{item.id} then #{item.editIndexFlag}
+          </if>
+          <if test="item.editIndexFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.EDIT_INDEX_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateFlag != null ">
+            when  #{item.id} then #{item.updateFlag}
+          </if>
+          <if test="item.updateFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="invitationFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.invitationFlag != null ">
+            when  #{item.id} then #{item.invitationFlag}
+          </if>
+          <if test="item.invitationFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.INVITATION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="listVersionFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.listVersionFlag != null ">
+            when  #{item.id} then #{item.listVersionFlag}
+          </if>
+          <if test="item.listVersionFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.LIST_VERSION_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="mustFlag =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.mustFlag != null ">
+            when  #{item.id} then #{item.mustFlag}
+          </if>
+          <if test="item.mustFlag == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.MUST_FLAG
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.WSP_TEMPLATE_PERMISSION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

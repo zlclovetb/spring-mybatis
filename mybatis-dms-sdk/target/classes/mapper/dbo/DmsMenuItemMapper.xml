@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.DmsMenuItemMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.DmsMenuItem">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="LABEL" jdbcType="VARCHAR" property="label" />
+    <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName" />
+    <result column="SEQUENCE" jdbcType="INTEGER" property="sequence" />
+    <result column="ENABLE_CSS" jdbcType="VARCHAR" property="enableCss" />
+    <result column="DISABLE_CSS" jdbcType="VARCHAR" property="disableCss" />
+    <result column="OBJECT_PERMISSION" jdbcType="CHAR" property="objectPermission" />
+    <result column="RESPONSE_CLASS" jdbcType="VARCHAR" property="responseClass" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, LABEL, GROUP_NAME, SEQUENCE, ENABLE_CSS, DISABLE_CSS, OBJECT_PERMISSION, RESPONSE_CLASS, 
+    DESCRIPTION, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.DmsMenuItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.DMS_MENU_ITEM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.DMS_MENU_ITEM
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.DMS_MENU_ITEM
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.DmsMenuItem">
+    insert into dbo.DMS_MENU_ITEM (ID, LABEL, GROUP_NAME, 
+      SEQUENCE, ENABLE_CSS, DISABLE_CSS, 
+      OBJECT_PERMISSION, RESPONSE_CLASS, DESCRIPTION, 
+      RECORD_STATUS, CREATOR_ID, UPDATER_ID, 
+      CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+      )
+    values (#{id,jdbcType=BIGINT}, #{label,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=INTEGER}, #{enableCss,jdbcType=VARCHAR}, #{disableCss,jdbcType=VARCHAR}, 
+      #{objectPermission,jdbcType=CHAR}, #{responseClass,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{recordStatus,jdbcType=CHAR}, #{creatorId,jdbcType=BIGINT}, #{updaterId,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{updateCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.DmsMenuItem">
+    insert into dbo.DMS_MENU_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="label != null">
+        LABEL,
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="sequence != null">
+        SEQUENCE,
+      </if>
+      <if test="enableCss != null">
+        ENABLE_CSS,
+      </if>
+      <if test="disableCss != null">
+        DISABLE_CSS,
+      </if>
+      <if test="objectPermission != null">
+        OBJECT_PERMISSION,
+      </if>
+      <if test="responseClass != null">
+        RESPONSE_CLASS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null">
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="enableCss != null">
+        #{enableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="disableCss != null">
+        #{disableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="objectPermission != null">
+        #{objectPermission,jdbcType=CHAR},
+      </if>
+      <if test="responseClass != null">
+        #{responseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.DMS_MENU_ITEM (ID, LABEL, GROUP_NAME, 
+      SEQUENCE, ENABLE_CSS, DISABLE_CSS, 
+      OBJECT_PERMISSION, RESPONSE_CLASS, 
+      DESCRIPTION, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.label,jdbcType=VARCHAR}, #{item.groupName,jdbcType=VARCHAR}, 
+        #{item.sequence,jdbcType=INTEGER}, #{item.enableCss,jdbcType=VARCHAR}, #{item.disableCss,jdbcType=VARCHAR}, 
+        #{item.objectPermission,jdbcType=CHAR}, #{item.responseClass,jdbcType=VARCHAR}, 
+        #{item.description,jdbcType=VARCHAR}, #{item.recordStatus,jdbcType=CHAR}, #{item.creatorId,jdbcType=BIGINT}, 
+        #{item.updaterId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updateDate,jdbcType=TIMESTAMP}, 
+        #{item.updateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.DMS_MENU_ITEM
+    (ID, LABEL, GROUP_NAME, SEQUENCE, ENABLE_CSS, DISABLE_CSS, OBJECT_PERMISSION, RESPONSE_CLASS, 
+      DESCRIPTION, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+      )
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.label != null">
+          #{item.label,jdbcType=VARCHAR},
+        </if>
+        <if test="item.label == null">
+          NULL,
+        </if>
+        <if test="item.groupName != null">
+          #{item.groupName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.groupName == null">
+          NULL,
+        </if>
+        <if test="item.sequence != null">
+          #{item.sequence,jdbcType=INTEGER},
+        </if>
+        <if test="item.sequence == null">
+          NULL,
+        </if>
+        <if test="item.enableCss != null">
+          #{item.enableCss,jdbcType=VARCHAR},
+        </if>
+        <if test="item.enableCss == null">
+          NULL,
+        </if>
+        <if test="item.disableCss != null">
+          #{item.disableCss,jdbcType=VARCHAR},
+        </if>
+        <if test="item.disableCss == null">
+          NULL,
+        </if>
+        <if test="item.objectPermission != null">
+          #{item.objectPermission,jdbcType=CHAR},
+        </if>
+        <if test="item.objectPermission == null">
+          NULL,
+        </if>
+        <if test="item.responseClass != null">
+          #{item.responseClass,jdbcType=VARCHAR},
+        </if>
+        <if test="item.responseClass == null">
+          NULL,
+        </if>
+        <if test="item.description != null">
+          #{item.description,jdbcType=VARCHAR},
+        </if>
+        <if test="item.description == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.DMS_MENU_ITEM
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.label != null">
+        LABEL = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupName != null">
+        GROUP_NAME = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sequence != null">
+        SEQUENCE = #{record.sequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.enableCss != null">
+        ENABLE_CSS = #{record.enableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.disableCss != null">
+        DISABLE_CSS = #{record.disableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="record.objectPermission != null">
+        OBJECT_PERMISSION = #{record.objectPermission,jdbcType=CHAR},
+      </if>
+      <if test="record.responseClass != null">
+        RESPONSE_CLASS = #{record.responseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.DMS_MENU_ITEM
+    set ID = #{record.id,jdbcType=BIGINT},
+      LABEL = #{record.label,jdbcType=VARCHAR},
+      GROUP_NAME = #{record.groupName,jdbcType=VARCHAR},
+      SEQUENCE = #{record.sequence,jdbcType=INTEGER},
+      ENABLE_CSS = #{record.enableCss,jdbcType=VARCHAR},
+      DISABLE_CSS = #{record.disableCss,jdbcType=VARCHAR},
+      OBJECT_PERMISSION = #{record.objectPermission,jdbcType=CHAR},
+      RESPONSE_CLASS = #{record.responseClass,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.DmsMenuItem">
+    update dbo.DMS_MENU_ITEM
+    <set>
+      <if test="label != null">
+        LABEL = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null">
+        SEQUENCE = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="enableCss != null">
+        ENABLE_CSS = #{enableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="disableCss != null">
+        DISABLE_CSS = #{disableCss,jdbcType=VARCHAR},
+      </if>
+      <if test="objectPermission != null">
+        OBJECT_PERMISSION = #{objectPermission,jdbcType=CHAR},
+      </if>
+      <if test="responseClass != null">
+        RESPONSE_CLASS = #{responseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.DmsMenuItem">
+    update dbo.DMS_MENU_ITEM
+    set LABEL = #{label,jdbcType=VARCHAR},
+      GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      SEQUENCE = #{sequence,jdbcType=INTEGER},
+      ENABLE_CSS = #{enableCss,jdbcType=VARCHAR},
+      DISABLE_CSS = #{disableCss,jdbcType=VARCHAR},
+      OBJECT_PERMISSION = #{objectPermission,jdbcType=CHAR},
+      RESPONSE_CLASS = #{responseClass,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.DMS_MENU_ITEM
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="LABEL =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.label != null">
+            when id = #{item.id} then #{item.label}
+          </if>
+          <if test="item.label == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.LABEL
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="GROUP_NAME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.groupName != null">
+            when id = #{item.id} then #{item.groupName}
+          </if>
+          <if test="item.groupName == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.GROUP_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SEQUENCE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sequence != null">
+            when id = #{item.id} then #{item.sequence}
+          </if>
+          <if test="item.sequence == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.SEQUENCE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ENABLE_CSS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.enableCss != null">
+            when id = #{item.id} then #{item.enableCss}
+          </if>
+          <if test="item.enableCss == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.ENABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DISABLE_CSS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.disableCss != null">
+            when id = #{item.id} then #{item.disableCss}
+          </if>
+          <if test="item.disableCss == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.DISABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="OBJECT_PERMISSION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.objectPermission != null">
+            when id = #{item.id} then #{item.objectPermission}
+          </if>
+          <if test="item.objectPermission == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.OBJECT_PERMISSION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RESPONSE_CLASS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.responseClass != null">
+            when id = #{item.id} then #{item.responseClass}
+          </if>
+          <if test="item.responseClass == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.RESPONSE_CLASS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null">
+            when id = #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.DMS_MENU_ITEM
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="LABEL =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.label != null ">
+            when  #{item.id} then #{item.label}
+          </if>
+          <if test="item.label == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.LABEL
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="GROUP_NAME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.groupName != null ">
+            when  #{item.id} then #{item.groupName}
+          </if>
+          <if test="item.groupName == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.GROUP_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SEQUENCE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sequence != null ">
+            when  #{item.id} then #{item.sequence}
+          </if>
+          <if test="item.sequence == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.SEQUENCE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ENABLE_CSS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.enableCss != null ">
+            when  #{item.id} then #{item.enableCss}
+          </if>
+          <if test="item.enableCss == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.ENABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DISABLE_CSS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.disableCss != null ">
+            when  #{item.id} then #{item.disableCss}
+          </if>
+          <if test="item.disableCss == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.DISABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="OBJECT_PERMISSION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.objectPermission != null ">
+            when  #{item.id} then #{item.objectPermission}
+          </if>
+          <if test="item.objectPermission == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.OBJECT_PERMISSION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RESPONSE_CLASS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.responseClass != null ">
+            when  #{item.id} then #{item.responseClass}
+          </if>
+          <if test="item.responseClass == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.RESPONSE_CLASS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="DESCRIPTION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.DMS_MENU_ITEM
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="label =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.label}
+        </foreach>
+      </trim>
+      <trim prefix="groupName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.groupName}
+        </foreach>
+      </trim>
+      <trim prefix="sequence =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.sequence}
+        </foreach>
+      </trim>
+      <trim prefix="enableCss =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.enableCss}
+        </foreach>
+      </trim>
+      <trim prefix="disableCss =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.disableCss}
+        </foreach>
+      </trim>
+      <trim prefix="objectPermission =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.objectPermission}
+        </foreach>
+      </trim>
+      <trim prefix="responseClass =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.responseClass}
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.description}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.DMS_MENU_ITEM
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="label =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.label != null ">
+            when  #{item.id} then #{item.label}
+          </if>
+          <if test="item.label == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.LABEL
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="groupName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.groupName != null ">
+            when  #{item.id} then #{item.groupName}
+          </if>
+          <if test="item.groupName == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.GROUP_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sequence =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.sequence != null ">
+            when  #{item.id} then #{item.sequence}
+          </if>
+          <if test="item.sequence == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.SEQUENCE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="enableCss =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.enableCss != null ">
+            when  #{item.id} then #{item.enableCss}
+          </if>
+          <if test="item.enableCss == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.ENABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="disableCss =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.disableCss != null ">
+            when  #{item.id} then #{item.disableCss}
+          </if>
+          <if test="item.disableCss == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.DISABLE_CSS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="objectPermission =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.objectPermission != null ">
+            when  #{item.id} then #{item.objectPermission}
+          </if>
+          <if test="item.objectPermission == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.OBJECT_PERMISSION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="responseClass =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.responseClass != null ">
+            when  #{item.id} then #{item.responseClass}
+          </if>
+          <if test="item.responseClass == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.RESPONSE_CLASS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="description =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.description != null ">
+            when  #{item.id} then #{item.description}
+          </if>
+          <if test="item.description == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_MENU_ITEM.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

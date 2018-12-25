@@ -1,0 +1,1657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.DmsAnnotationMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.DmsAnnotation">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="DOC_ID" jdbcType="BIGINT" property="docId" />
+    <result column="CONTENT_ID" jdbcType="BIGINT" property="contentId" />
+    <result column="PAGE_INDEX" jdbcType="INTEGER" property="pageIndex" />
+    <result column="PAGE_WIDTH" jdbcType="INTEGER" property="pageWidth" />
+    <result column="PAGE_HEIGHT" jdbcType="INTEGER" property="pageHeight" />
+    <result column="ANNOTATION_TYPE_ID" jdbcType="INTEGER" property="annotationTypeId" />
+    <result column="COORDINATE" jdbcType="VARCHAR" property="coordinate" />
+    <result column="FORM_FIELD_NAME" jdbcType="VARCHAR" property="formFieldName" />
+    <result column="FORM_FIELD_VALUE" jdbcType="VARCHAR" property="formFieldValue" />
+    <result column="FONT_SIZE" jdbcType="INTEGER" property="fontSize" />
+    <result column="FONT" jdbcType="VARCHAR" property="font" />
+    <result column="COLOR" jdbcType="VARCHAR" property="color" />
+    <result column="BACKGROUND_COLOR" jdbcType="VARCHAR" property="backgroundColor" />
+    <result column="READ_ONLY" jdbcType="INTEGER" property="readOnly" />
+    <result column="READ_ONLY_COMMENT" jdbcType="INTEGER" property="readOnlyComment" />
+    <result column="MEASUREMENT_TYPE_ID" jdbcType="INTEGER" property="measurementTypeId" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.paradm.system.entity.dbo.DmsAnnotationWithBLOBs">
+    <result column="TEXT" jdbcType="CLOB" property="text" />
+    <result column="ICON" jdbcType="CLOB" property="icon" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, DOC_ID, CONTENT_ID, PAGE_INDEX, PAGE_WIDTH, PAGE_HEIGHT, ANNOTATION_TYPE_ID, 
+    COORDINATE, FORM_FIELD_NAME, FORM_FIELD_VALUE, FONT_SIZE, FONT, COLOR, BACKGROUND_COLOR, 
+    READ_ONLY, READ_ONLY_COMMENT, MEASUREMENT_TYPE_ID, RECORD_STATUS, UPDATE_COUNT, CREATOR_ID, 
+    CREATE_DATE, UPDATER_ID, UPDATE_DATE
+  </sql>
+  <sql id="Blob_Column_List">
+    TEXT, ICON
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.paradm.system.entity.dbo.DmsAnnotationExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dbo.DMS_ANNOTATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.DmsAnnotationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.DMS_ANNOTATION
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dbo.DMS_ANNOTATION
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.DMS_ANNOTATION
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.DmsAnnotationWithBLOBs">
+    insert into dbo.DMS_ANNOTATION (ID, DOC_ID, CONTENT_ID, 
+      PAGE_INDEX, PAGE_WIDTH, PAGE_HEIGHT, 
+      ANNOTATION_TYPE_ID, COORDINATE, FORM_FIELD_NAME, 
+      FORM_FIELD_VALUE, FONT_SIZE, FONT, 
+      COLOR, BACKGROUND_COLOR, READ_ONLY, 
+      READ_ONLY_COMMENT, MEASUREMENT_TYPE_ID, RECORD_STATUS, 
+      UPDATE_COUNT, CREATOR_ID, CREATE_DATE, 
+      UPDATER_ID, UPDATE_DATE, TEXT, 
+      ICON)
+    values (#{id,jdbcType=BIGINT}, #{docId,jdbcType=BIGINT}, #{contentId,jdbcType=BIGINT}, 
+      #{pageIndex,jdbcType=INTEGER}, #{pageWidth,jdbcType=INTEGER}, #{pageHeight,jdbcType=INTEGER}, 
+      #{annotationTypeId,jdbcType=INTEGER}, #{coordinate,jdbcType=VARCHAR}, #{formFieldName,jdbcType=VARCHAR}, 
+      #{formFieldValue,jdbcType=VARCHAR}, #{fontSize,jdbcType=INTEGER}, #{font,jdbcType=VARCHAR}, 
+      #{color,jdbcType=VARCHAR}, #{backgroundColor,jdbcType=VARCHAR}, #{readOnly,jdbcType=INTEGER}, 
+      #{readOnlyComment,jdbcType=INTEGER}, #{measurementTypeId,jdbcType=INTEGER}, #{recordStatus,jdbcType=CHAR}, 
+      #{updateCount,jdbcType=INTEGER}, #{creatorId,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updaterId,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{text,jdbcType=CLOB}, 
+      #{icon,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.DmsAnnotationWithBLOBs">
+    insert into dbo.DMS_ANNOTATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="docId != null">
+        DOC_ID,
+      </if>
+      <if test="contentId != null">
+        CONTENT_ID,
+      </if>
+      <if test="pageIndex != null">
+        PAGE_INDEX,
+      </if>
+      <if test="pageWidth != null">
+        PAGE_WIDTH,
+      </if>
+      <if test="pageHeight != null">
+        PAGE_HEIGHT,
+      </if>
+      <if test="annotationTypeId != null">
+        ANNOTATION_TYPE_ID,
+      </if>
+      <if test="coordinate != null">
+        COORDINATE,
+      </if>
+      <if test="formFieldName != null">
+        FORM_FIELD_NAME,
+      </if>
+      <if test="formFieldValue != null">
+        FORM_FIELD_VALUE,
+      </if>
+      <if test="fontSize != null">
+        FONT_SIZE,
+      </if>
+      <if test="font != null">
+        FONT,
+      </if>
+      <if test="color != null">
+        COLOR,
+      </if>
+      <if test="backgroundColor != null">
+        BACKGROUND_COLOR,
+      </if>
+      <if test="readOnly != null">
+        READ_ONLY,
+      </if>
+      <if test="readOnlyComment != null">
+        READ_ONLY_COMMENT,
+      </if>
+      <if test="measurementTypeId != null">
+        MEASUREMENT_TYPE_ID,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="text != null">
+        TEXT,
+      </if>
+      <if test="icon != null">
+        ICON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="docId != null">
+        #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="pageIndex != null">
+        #{pageIndex,jdbcType=INTEGER},
+      </if>
+      <if test="pageWidth != null">
+        #{pageWidth,jdbcType=INTEGER},
+      </if>
+      <if test="pageHeight != null">
+        #{pageHeight,jdbcType=INTEGER},
+      </if>
+      <if test="annotationTypeId != null">
+        #{annotationTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="coordinate != null">
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="formFieldName != null">
+        #{formFieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="formFieldValue != null">
+        #{formFieldValue,jdbcType=VARCHAR},
+      </if>
+      <if test="fontSize != null">
+        #{fontSize,jdbcType=INTEGER},
+      </if>
+      <if test="font != null">
+        #{font,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundColor != null">
+        #{backgroundColor,jdbcType=VARCHAR},
+      </if>
+      <if test="readOnly != null">
+        #{readOnly,jdbcType=INTEGER},
+      </if>
+      <if test="readOnlyComment != null">
+        #{readOnlyComment,jdbcType=INTEGER},
+      </if>
+      <if test="measurementTypeId != null">
+        #{measurementTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=CLOB},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.DMS_ANNOTATION (ID, DOC_ID, CONTENT_ID, 
+      PAGE_INDEX, PAGE_WIDTH, PAGE_HEIGHT, 
+      ANNOTATION_TYPE_ID, COORDINATE, 
+      FORM_FIELD_NAME, FORM_FIELD_VALUE, 
+      FONT_SIZE, FONT, COLOR, 
+      BACKGROUND_COLOR, READ_ONLY, READ_ONLY_COMMENT, 
+      MEASUREMENT_TYPE_ID, RECORD_STATUS, 
+      UPDATE_COUNT, CREATOR_ID, CREATE_DATE, 
+      UPDATER_ID, UPDATE_DATE, TEXT, 
+      ICON)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.docId,jdbcType=BIGINT}, #{item.contentId,jdbcType=BIGINT}, 
+        #{item.pageIndex,jdbcType=INTEGER}, #{item.pageWidth,jdbcType=INTEGER}, #{item.pageHeight,jdbcType=INTEGER}, 
+        #{item.annotationTypeId,jdbcType=INTEGER}, #{item.coordinate,jdbcType=VARCHAR}, 
+        #{item.formFieldName,jdbcType=VARCHAR}, #{item.formFieldValue,jdbcType=VARCHAR}, 
+        #{item.fontSize,jdbcType=INTEGER}, #{item.font,jdbcType=VARCHAR}, #{item.color,jdbcType=VARCHAR}, 
+        #{item.backgroundColor,jdbcType=VARCHAR}, #{item.readOnly,jdbcType=INTEGER}, #{item.readOnlyComment,jdbcType=INTEGER}, 
+        #{item.measurementTypeId,jdbcType=INTEGER}, #{item.recordStatus,jdbcType=CHAR}, 
+        #{item.updateCount,jdbcType=INTEGER}, #{item.creatorId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, 
+        #{item.updaterId,jdbcType=BIGINT}, #{item.updateDate,jdbcType=TIMESTAMP}, #{item.text,jdbcType=CLOB}, 
+        #{item.icon,jdbcType=CLOB})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.DMS_ANNOTATION
+    (ID, DOC_ID, CONTENT_ID, PAGE_INDEX, PAGE_WIDTH, PAGE_HEIGHT, ANNOTATION_TYPE_ID, 
+      COORDINATE, FORM_FIELD_NAME, FORM_FIELD_VALUE, FONT_SIZE, FONT, COLOR, BACKGROUND_COLOR, 
+      READ_ONLY, READ_ONLY_COMMENT, MEASUREMENT_TYPE_ID, RECORD_STATUS, UPDATE_COUNT, 
+      CREATOR_ID, CREATE_DATE, UPDATER_ID, UPDATE_DATE, TEXT, ICON)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.docId != null">
+          #{item.docId,jdbcType=BIGINT},
+        </if>
+        <if test="item.docId == null">
+          NULL,
+        </if>
+        <if test="item.contentId != null">
+          #{item.contentId,jdbcType=BIGINT},
+        </if>
+        <if test="item.contentId == null">
+          NULL,
+        </if>
+        <if test="item.pageIndex != null">
+          #{item.pageIndex,jdbcType=INTEGER},
+        </if>
+        <if test="item.pageIndex == null">
+          NULL,
+        </if>
+        <if test="item.pageWidth != null">
+          #{item.pageWidth,jdbcType=INTEGER},
+        </if>
+        <if test="item.pageWidth == null">
+          NULL,
+        </if>
+        <if test="item.pageHeight != null">
+          #{item.pageHeight,jdbcType=INTEGER},
+        </if>
+        <if test="item.pageHeight == null">
+          NULL,
+        </if>
+        <if test="item.annotationTypeId != null">
+          #{item.annotationTypeId,jdbcType=INTEGER},
+        </if>
+        <if test="item.annotationTypeId == null">
+          NULL,
+        </if>
+        <if test="item.coordinate != null">
+          #{item.coordinate,jdbcType=VARCHAR},
+        </if>
+        <if test="item.coordinate == null">
+          NULL,
+        </if>
+        <if test="item.formFieldName != null">
+          #{item.formFieldName,jdbcType=VARCHAR},
+        </if>
+        <if test="item.formFieldName == null">
+          NULL,
+        </if>
+        <if test="item.formFieldValue != null">
+          #{item.formFieldValue,jdbcType=VARCHAR},
+        </if>
+        <if test="item.formFieldValue == null">
+          NULL,
+        </if>
+        <if test="item.fontSize != null">
+          #{item.fontSize,jdbcType=INTEGER},
+        </if>
+        <if test="item.fontSize == null">
+          NULL,
+        </if>
+        <if test="item.font != null">
+          #{item.font,jdbcType=VARCHAR},
+        </if>
+        <if test="item.font == null">
+          NULL,
+        </if>
+        <if test="item.color != null">
+          #{item.color,jdbcType=VARCHAR},
+        </if>
+        <if test="item.color == null">
+          NULL,
+        </if>
+        <if test="item.backgroundColor != null">
+          #{item.backgroundColor,jdbcType=VARCHAR},
+        </if>
+        <if test="item.backgroundColor == null">
+          NULL,
+        </if>
+        <if test="item.readOnly != null">
+          #{item.readOnly,jdbcType=INTEGER},
+        </if>
+        <if test="item.readOnly == null">
+          NULL,
+        </if>
+        <if test="item.readOnlyComment != null">
+          #{item.readOnlyComment,jdbcType=INTEGER},
+        </if>
+        <if test="item.readOnlyComment == null">
+          NULL,
+        </if>
+        <if test="item.measurementTypeId != null">
+          #{item.measurementTypeId,jdbcType=INTEGER},
+        </if>
+        <if test="item.measurementTypeId == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.text != null">
+          #{item.text,jdbcType=CLOB},
+        </if>
+        <if test="item.text == null">
+          NULL,
+        </if>
+        <if test="item.icon != null">
+          #{item.icon,jdbcType=CLOB},
+        </if>
+        <if test="item.icon == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.DMS_ANNOTATION
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.docId != null">
+        DOC_ID = #{record.docId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contentId != null">
+        CONTENT_ID = #{record.contentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pageIndex != null">
+        PAGE_INDEX = #{record.pageIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageWidth != null">
+        PAGE_WIDTH = #{record.pageWidth,jdbcType=INTEGER},
+      </if>
+      <if test="record.pageHeight != null">
+        PAGE_HEIGHT = #{record.pageHeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.annotationTypeId != null">
+        ANNOTATION_TYPE_ID = #{record.annotationTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.coordinate != null">
+        COORDINATE = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formFieldName != null">
+        FORM_FIELD_NAME = #{record.formFieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.formFieldValue != null">
+        FORM_FIELD_VALUE = #{record.formFieldValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fontSize != null">
+        FONT_SIZE = #{record.fontSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.font != null">
+        FONT = #{record.font,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null">
+        COLOR = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backgroundColor != null">
+        BACKGROUND_COLOR = #{record.backgroundColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.readOnly != null">
+        READ_ONLY = #{record.readOnly,jdbcType=INTEGER},
+      </if>
+      <if test="record.readOnlyComment != null">
+        READ_ONLY_COMMENT = #{record.readOnlyComment,jdbcType=INTEGER},
+      </if>
+      <if test="record.measurementTypeId != null">
+        MEASUREMENT_TYPE_ID = #{record.measurementTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.text != null">
+        TEXT = #{record.text,jdbcType=CLOB},
+      </if>
+      <if test="record.icon != null">
+        ICON = #{record.icon,jdbcType=CLOB},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update dbo.DMS_ANNOTATION
+    set ID = #{record.id,jdbcType=BIGINT},
+      DOC_ID = #{record.docId,jdbcType=BIGINT},
+      CONTENT_ID = #{record.contentId,jdbcType=BIGINT},
+      PAGE_INDEX = #{record.pageIndex,jdbcType=INTEGER},
+      PAGE_WIDTH = #{record.pageWidth,jdbcType=INTEGER},
+      PAGE_HEIGHT = #{record.pageHeight,jdbcType=INTEGER},
+      ANNOTATION_TYPE_ID = #{record.annotationTypeId,jdbcType=INTEGER},
+      COORDINATE = #{record.coordinate,jdbcType=VARCHAR},
+      FORM_FIELD_NAME = #{record.formFieldName,jdbcType=VARCHAR},
+      FORM_FIELD_VALUE = #{record.formFieldValue,jdbcType=VARCHAR},
+      FONT_SIZE = #{record.fontSize,jdbcType=INTEGER},
+      FONT = #{record.font,jdbcType=VARCHAR},
+      COLOR = #{record.color,jdbcType=VARCHAR},
+      BACKGROUND_COLOR = #{record.backgroundColor,jdbcType=VARCHAR},
+      READ_ONLY = #{record.readOnly,jdbcType=INTEGER},
+      READ_ONLY_COMMENT = #{record.readOnlyComment,jdbcType=INTEGER},
+      MEASUREMENT_TYPE_ID = #{record.measurementTypeId,jdbcType=INTEGER},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      TEXT = #{record.text,jdbcType=CLOB},
+      ICON = #{record.icon,jdbcType=CLOB}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.DMS_ANNOTATION
+    set ID = #{record.id,jdbcType=BIGINT},
+      DOC_ID = #{record.docId,jdbcType=BIGINT},
+      CONTENT_ID = #{record.contentId,jdbcType=BIGINT},
+      PAGE_INDEX = #{record.pageIndex,jdbcType=INTEGER},
+      PAGE_WIDTH = #{record.pageWidth,jdbcType=INTEGER},
+      PAGE_HEIGHT = #{record.pageHeight,jdbcType=INTEGER},
+      ANNOTATION_TYPE_ID = #{record.annotationTypeId,jdbcType=INTEGER},
+      COORDINATE = #{record.coordinate,jdbcType=VARCHAR},
+      FORM_FIELD_NAME = #{record.formFieldName,jdbcType=VARCHAR},
+      FORM_FIELD_VALUE = #{record.formFieldValue,jdbcType=VARCHAR},
+      FONT_SIZE = #{record.fontSize,jdbcType=INTEGER},
+      FONT = #{record.font,jdbcType=VARCHAR},
+      COLOR = #{record.color,jdbcType=VARCHAR},
+      BACKGROUND_COLOR = #{record.backgroundColor,jdbcType=VARCHAR},
+      READ_ONLY = #{record.readOnly,jdbcType=INTEGER},
+      READ_ONLY_COMMENT = #{record.readOnlyComment,jdbcType=INTEGER},
+      MEASUREMENT_TYPE_ID = #{record.measurementTypeId,jdbcType=INTEGER},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.DmsAnnotationWithBLOBs">
+    update dbo.DMS_ANNOTATION
+    <set>
+      <if test="docId != null">
+        DOC_ID = #{docId,jdbcType=BIGINT},
+      </if>
+      <if test="contentId != null">
+        CONTENT_ID = #{contentId,jdbcType=BIGINT},
+      </if>
+      <if test="pageIndex != null">
+        PAGE_INDEX = #{pageIndex,jdbcType=INTEGER},
+      </if>
+      <if test="pageWidth != null">
+        PAGE_WIDTH = #{pageWidth,jdbcType=INTEGER},
+      </if>
+      <if test="pageHeight != null">
+        PAGE_HEIGHT = #{pageHeight,jdbcType=INTEGER},
+      </if>
+      <if test="annotationTypeId != null">
+        ANNOTATION_TYPE_ID = #{annotationTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="coordinate != null">
+        COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="formFieldName != null">
+        FORM_FIELD_NAME = #{formFieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="formFieldValue != null">
+        FORM_FIELD_VALUE = #{formFieldValue,jdbcType=VARCHAR},
+      </if>
+      <if test="fontSize != null">
+        FONT_SIZE = #{fontSize,jdbcType=INTEGER},
+      </if>
+      <if test="font != null">
+        FONT = #{font,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        COLOR = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundColor != null">
+        BACKGROUND_COLOR = #{backgroundColor,jdbcType=VARCHAR},
+      </if>
+      <if test="readOnly != null">
+        READ_ONLY = #{readOnly,jdbcType=INTEGER},
+      </if>
+      <if test="readOnlyComment != null">
+        READ_ONLY_COMMENT = #{readOnlyComment,jdbcType=INTEGER},
+      </if>
+      <if test="measurementTypeId != null">
+        MEASUREMENT_TYPE_ID = #{measurementTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="text != null">
+        TEXT = #{text,jdbcType=CLOB},
+      </if>
+      <if test="icon != null">
+        ICON = #{icon,jdbcType=CLOB},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.paradm.system.entity.dbo.DmsAnnotationWithBLOBs">
+    update dbo.DMS_ANNOTATION
+    set DOC_ID = #{docId,jdbcType=BIGINT},
+      CONTENT_ID = #{contentId,jdbcType=BIGINT},
+      PAGE_INDEX = #{pageIndex,jdbcType=INTEGER},
+      PAGE_WIDTH = #{pageWidth,jdbcType=INTEGER},
+      PAGE_HEIGHT = #{pageHeight,jdbcType=INTEGER},
+      ANNOTATION_TYPE_ID = #{annotationTypeId,jdbcType=INTEGER},
+      COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      FORM_FIELD_NAME = #{formFieldName,jdbcType=VARCHAR},
+      FORM_FIELD_VALUE = #{formFieldValue,jdbcType=VARCHAR},
+      FONT_SIZE = #{fontSize,jdbcType=INTEGER},
+      FONT = #{font,jdbcType=VARCHAR},
+      COLOR = #{color,jdbcType=VARCHAR},
+      BACKGROUND_COLOR = #{backgroundColor,jdbcType=VARCHAR},
+      READ_ONLY = #{readOnly,jdbcType=INTEGER},
+      READ_ONLY_COMMENT = #{readOnlyComment,jdbcType=INTEGER},
+      MEASUREMENT_TYPE_ID = #{measurementTypeId,jdbcType=INTEGER},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      TEXT = #{text,jdbcType=CLOB},
+      ICON = #{icon,jdbcType=CLOB}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.DmsAnnotation">
+    update dbo.DMS_ANNOTATION
+    set DOC_ID = #{docId,jdbcType=BIGINT},
+      CONTENT_ID = #{contentId,jdbcType=BIGINT},
+      PAGE_INDEX = #{pageIndex,jdbcType=INTEGER},
+      PAGE_WIDTH = #{pageWidth,jdbcType=INTEGER},
+      PAGE_HEIGHT = #{pageHeight,jdbcType=INTEGER},
+      ANNOTATION_TYPE_ID = #{annotationTypeId,jdbcType=INTEGER},
+      COORDINATE = #{coordinate,jdbcType=VARCHAR},
+      FORM_FIELD_NAME = #{formFieldName,jdbcType=VARCHAR},
+      FORM_FIELD_VALUE = #{formFieldValue,jdbcType=VARCHAR},
+      FONT_SIZE = #{fontSize,jdbcType=INTEGER},
+      FONT = #{font,jdbcType=VARCHAR},
+      COLOR = #{color,jdbcType=VARCHAR},
+      BACKGROUND_COLOR = #{backgroundColor,jdbcType=VARCHAR},
+      READ_ONLY = #{readOnly,jdbcType=INTEGER},
+      READ_ONLY_COMMENT = #{readOnlyComment,jdbcType=INTEGER},
+      MEASUREMENT_TYPE_ID = #{measurementTypeId,jdbcType=INTEGER},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.DMS_ANNOTATION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null">
+            when id = #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CONTENT_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.contentId != null">
+            when id = #{item.id} then #{item.contentId}
+          </if>
+          <if test="item.contentId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.CONTENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_INDEX =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageIndex != null">
+            when id = #{item.id} then #{item.pageIndex}
+          </if>
+          <if test="item.pageIndex == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.PAGE_INDEX
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_WIDTH =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageWidth != null">
+            when id = #{item.id} then #{item.pageWidth}
+          </if>
+          <if test="item.pageWidth == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.PAGE_WIDTH
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_HEIGHT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageHeight != null">
+            when id = #{item.id} then #{item.pageHeight}
+          </if>
+          <if test="item.pageHeight == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.PAGE_HEIGHT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ANNOTATION_TYPE_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.annotationTypeId != null">
+            when id = #{item.id} then #{item.annotationTypeId}
+          </if>
+          <if test="item.annotationTypeId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.ANNOTATION_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COORDINATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.coordinate != null">
+            when id = #{item.id} then #{item.coordinate}
+          </if>
+          <if test="item.coordinate == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.COORDINATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FORM_FIELD_NAME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.formFieldName != null">
+            when id = #{item.id} then #{item.formFieldName}
+          </if>
+          <if test="item.formFieldName == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FORM_FIELD_VALUE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.formFieldValue != null">
+            when id = #{item.id} then #{item.formFieldValue}
+          </if>
+          <if test="item.formFieldValue == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_VALUE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FONT_SIZE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.fontSize != null">
+            when id = #{item.id} then #{item.fontSize}
+          </if>
+          <if test="item.fontSize == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.FONT_SIZE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FONT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.font != null">
+            when id = #{item.id} then #{item.font}
+          </if>
+          <if test="item.font == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.FONT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COLOR =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.color != null">
+            when id = #{item.id} then #{item.color}
+          </if>
+          <if test="item.color == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="BACKGROUND_COLOR =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.backgroundColor != null">
+            when id = #{item.id} then #{item.backgroundColor}
+          </if>
+          <if test="item.backgroundColor == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.BACKGROUND_COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_ONLY =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readOnly != null">
+            when id = #{item.id} then #{item.readOnly}
+          </if>
+          <if test="item.readOnly == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_ONLY_COMMENT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readOnlyComment != null">
+            when id = #{item.id} then #{item.readOnlyComment}
+          </if>
+          <if test="item.readOnlyComment == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY_COMMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MEASUREMENT_TYPE_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.measurementTypeId != null">
+            when id = #{item.id} then #{item.measurementTypeId}
+          </if>
+          <if test="item.measurementTypeId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.MEASUREMENT_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TEXT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.text != null">
+            when id = #{item.id} then #{item.text}
+          </if>
+          <if test="item.text == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.TEXT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ICON =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.icon != null">
+            when id = #{item.id} then #{item.icon}
+          </if>
+          <if test="item.icon == null">
+            when id = #{item.id} then dbo.DMS_ANNOTATION.ICON
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.DMS_ANNOTATION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="DOC_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CONTENT_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.contentId != null ">
+            when  #{item.id} then #{item.contentId}
+          </if>
+          <if test="item.contentId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CONTENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_INDEX =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageIndex != null ">
+            when  #{item.id} then #{item.pageIndex}
+          </if>
+          <if test="item.pageIndex == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_INDEX
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_WIDTH =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageWidth != null ">
+            when  #{item.id} then #{item.pageWidth}
+          </if>
+          <if test="item.pageWidth == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_WIDTH
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="PAGE_HEIGHT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.pageHeight != null ">
+            when  #{item.id} then #{item.pageHeight}
+          </if>
+          <if test="item.pageHeight == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_HEIGHT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ANNOTATION_TYPE_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.annotationTypeId != null ">
+            when  #{item.id} then #{item.annotationTypeId}
+          </if>
+          <if test="item.annotationTypeId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.ANNOTATION_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COORDINATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.coordinate != null ">
+            when  #{item.id} then #{item.coordinate}
+          </if>
+          <if test="item.coordinate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.COORDINATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FORM_FIELD_NAME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.formFieldName != null ">
+            when  #{item.id} then #{item.formFieldName}
+          </if>
+          <if test="item.formFieldName == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FORM_FIELD_VALUE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.formFieldValue != null ">
+            when  #{item.id} then #{item.formFieldValue}
+          </if>
+          <if test="item.formFieldValue == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_VALUE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FONT_SIZE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.fontSize != null ">
+            when  #{item.id} then #{item.fontSize}
+          </if>
+          <if test="item.fontSize == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FONT_SIZE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="FONT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.font != null ">
+            when  #{item.id} then #{item.font}
+          </if>
+          <if test="item.font == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FONT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="COLOR =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.color != null ">
+            when  #{item.id} then #{item.color}
+          </if>
+          <if test="item.color == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="BACKGROUND_COLOR =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.backgroundColor != null ">
+            when  #{item.id} then #{item.backgroundColor}
+          </if>
+          <if test="item.backgroundColor == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.BACKGROUND_COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_ONLY =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readOnly != null ">
+            when  #{item.id} then #{item.readOnly}
+          </if>
+          <if test="item.readOnly == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="READ_ONLY_COMMENT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.readOnlyComment != null ">
+            when  #{item.id} then #{item.readOnlyComment}
+          </if>
+          <if test="item.readOnlyComment == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY_COMMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="MEASUREMENT_TYPE_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.measurementTypeId != null ">
+            when  #{item.id} then #{item.measurementTypeId}
+          </if>
+          <if test="item.measurementTypeId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.MEASUREMENT_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="TEXT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.text != null ">
+            when  #{item.id} then #{item.text}
+          </if>
+          <if test="item.text == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.TEXT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ICON =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.icon != null ">
+            when  #{item.id} then #{item.icon}
+          </if>
+          <if test="item.icon == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.ICON
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.DMS_ANNOTATION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.docId}
+        </foreach>
+      </trim>
+      <trim prefix="contentId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.contentId}
+        </foreach>
+      </trim>
+      <trim prefix="pageIndex =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.pageIndex}
+        </foreach>
+      </trim>
+      <trim prefix="pageWidth =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.pageWidth}
+        </foreach>
+      </trim>
+      <trim prefix="pageHeight =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.pageHeight}
+        </foreach>
+      </trim>
+      <trim prefix="annotationTypeId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.annotationTypeId}
+        </foreach>
+      </trim>
+      <trim prefix="coordinate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.coordinate}
+        </foreach>
+      </trim>
+      <trim prefix="formFieldName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.formFieldName}
+        </foreach>
+      </trim>
+      <trim prefix="formFieldValue =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.formFieldValue}
+        </foreach>
+      </trim>
+      <trim prefix="fontSize =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.fontSize}
+        </foreach>
+      </trim>
+      <trim prefix="font =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.font}
+        </foreach>
+      </trim>
+      <trim prefix="color =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.color}
+        </foreach>
+      </trim>
+      <trim prefix="backgroundColor =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.backgroundColor}
+        </foreach>
+      </trim>
+      <trim prefix="readOnly =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.readOnly}
+        </foreach>
+      </trim>
+      <trim prefix="readOnlyComment =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.readOnlyComment}
+        </foreach>
+      </trim>
+      <trim prefix="measurementTypeId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.measurementTypeId}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="text =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.text}
+        </foreach>
+      </trim>
+      <trim prefix="icon =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.icon}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.DMS_ANNOTATION
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="docId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.docId != null ">
+            when  #{item.id} then #{item.docId}
+          </if>
+          <if test="item.docId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.DOC_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="contentId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.contentId != null ">
+            when  #{item.id} then #{item.contentId}
+          </if>
+          <if test="item.contentId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CONTENT_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pageIndex =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.pageIndex != null ">
+            when  #{item.id} then #{item.pageIndex}
+          </if>
+          <if test="item.pageIndex == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_INDEX
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pageWidth =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.pageWidth != null ">
+            when  #{item.id} then #{item.pageWidth}
+          </if>
+          <if test="item.pageWidth == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_WIDTH
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="pageHeight =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.pageHeight != null ">
+            when  #{item.id} then #{item.pageHeight}
+          </if>
+          <if test="item.pageHeight == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.PAGE_HEIGHT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="annotationTypeId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.annotationTypeId != null ">
+            when  #{item.id} then #{item.annotationTypeId}
+          </if>
+          <if test="item.annotationTypeId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.ANNOTATION_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="coordinate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.coordinate != null ">
+            when  #{item.id} then #{item.coordinate}
+          </if>
+          <if test="item.coordinate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.COORDINATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="formFieldName =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.formFieldName != null ">
+            when  #{item.id} then #{item.formFieldName}
+          </if>
+          <if test="item.formFieldName == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_NAME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="formFieldValue =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.formFieldValue != null ">
+            when  #{item.id} then #{item.formFieldValue}
+          </if>
+          <if test="item.formFieldValue == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FORM_FIELD_VALUE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="fontSize =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.fontSize != null ">
+            when  #{item.id} then #{item.fontSize}
+          </if>
+          <if test="item.fontSize == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FONT_SIZE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="font =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.font != null ">
+            when  #{item.id} then #{item.font}
+          </if>
+          <if test="item.font == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.FONT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="color =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.color != null ">
+            when  #{item.id} then #{item.color}
+          </if>
+          <if test="item.color == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="backgroundColor =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.backgroundColor != null ">
+            when  #{item.id} then #{item.backgroundColor}
+          </if>
+          <if test="item.backgroundColor == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.BACKGROUND_COLOR
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="readOnly =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.readOnly != null ">
+            when  #{item.id} then #{item.readOnly}
+          </if>
+          <if test="item.readOnly == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="readOnlyComment =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.readOnlyComment != null ">
+            when  #{item.id} then #{item.readOnlyComment}
+          </if>
+          <if test="item.readOnlyComment == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.READ_ONLY_COMMENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="measurementTypeId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.measurementTypeId != null ">
+            when  #{item.id} then #{item.measurementTypeId}
+          </if>
+          <if test="item.measurementTypeId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.MEASUREMENT_TYPE_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="text =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.text != null ">
+            when  #{item.id} then #{item.text}
+          </if>
+          <if test="item.text == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.TEXT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="icon =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.icon != null ">
+            when  #{item.id} then #{item.icon}
+          </if>
+          <if test="item.icon == null ">
+            when  #{item.id} then dbo.DMS_ANNOTATION.ICON
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

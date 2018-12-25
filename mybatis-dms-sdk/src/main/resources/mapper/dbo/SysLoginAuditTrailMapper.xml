@@ -1,0 +1,1002 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paradm.system.dao.dbo.SysLoginAuditTrailMapper">
+  <resultMap id="BaseResultMap" type="com.paradm.system.entity.dbo.SysLoginAuditTrail">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="ORG_ID" jdbcType="BIGINT" property="orgId" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="LOGOUT_TIME" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="LOGIN_STATUS" jdbcType="CHAR" property="loginStatus" />
+    <result column="LOGIN_CLIENT" jdbcType="CHAR" property="loginClient" />
+    <result column="LOGIN_DESCRIPTION" jdbcType="VARCHAR" property="loginDescription" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="SESSION_ID" jdbcType="VARCHAR" property="sessionId" />
+    <result column="RECORD_STATUS" jdbcType="CHAR" property="recordStatus" />
+    <result column="CREATOR_ID" jdbcType="BIGINT" property="creatorId" />
+    <result column="UPDATER_ID" jdbcType="BIGINT" property="updaterId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="UPDATE_COUNT" jdbcType="INTEGER" property="updateCount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, ORG_ID, LOGIN_TIME, LOGOUT_TIME, LOGIN_STATUS, LOGIN_CLIENT, LOGIN_DESCRIPTION, 
+    IP_ADDRESS, SESSION_ID, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+    UPDATE_COUNT
+  </sql>
+  <select id="selectByExample" parameterType="com.paradm.system.entity.dbo.SysLoginAuditTrailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dbo.SYS_LOGIN_AUDIT_TRAIL
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dbo.SYS_LOGIN_AUDIT_TRAIL
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dbo.SYS_LOGIN_AUDIT_TRAIL
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.paradm.system.entity.dbo.SysLoginAuditTrail">
+    insert into dbo.SYS_LOGIN_AUDIT_TRAIL (ID, ORG_ID, LOGIN_TIME, 
+      LOGOUT_TIME, LOGIN_STATUS, LOGIN_CLIENT, 
+      LOGIN_DESCRIPTION, IP_ADDRESS, SESSION_ID, 
+      RECORD_STATUS, CREATOR_ID, UPDATER_ID, 
+      CREATE_DATE, UPDATE_DATE, UPDATE_COUNT
+      )
+    values (#{id,jdbcType=BIGINT}, #{orgId,jdbcType=BIGINT}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{logoutTime,jdbcType=TIMESTAMP}, #{loginStatus,jdbcType=CHAR}, #{loginClient,jdbcType=CHAR}, 
+      #{loginDescription,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{recordStatus,jdbcType=CHAR}, #{creatorId,jdbcType=BIGINT}, #{updaterId,jdbcType=BIGINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{updateCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.paradm.system.entity.dbo.SysLoginAuditTrail">
+    insert into dbo.SYS_LOGIN_AUDIT_TRAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orgId != null">
+        ORG_ID,
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME,
+      </if>
+      <if test="logoutTime != null">
+        LOGOUT_TIME,
+      </if>
+      <if test="loginStatus != null">
+        LOGIN_STATUS,
+      </if>
+      <if test="loginClient != null">
+        LOGIN_CLIENT,
+      </if>
+      <if test="loginDescription != null">
+        LOGIN_DESCRIPTION,
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS,
+      </if>
+      <if test="sessionId != null">
+        SESSION_ID,
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orgId != null">
+        #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginStatus != null">
+        #{loginStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginClient != null">
+        #{loginClient,jdbcType=CHAR},
+      </if>
+      <if test="loginDescription != null">
+        #{loginDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null">
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        #{updateCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into dbo.SYS_LOGIN_AUDIT_TRAIL (ID, ORG_ID, LOGIN_TIME, 
+      LOGOUT_TIME, LOGIN_STATUS, LOGIN_CLIENT, 
+      LOGIN_DESCRIPTION, IP_ADDRESS, 
+      SESSION_ID, RECORD_STATUS, CREATOR_ID, 
+      UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.orgId,jdbcType=BIGINT}, #{item.loginTime,jdbcType=TIMESTAMP}, 
+        #{item.logoutTime,jdbcType=TIMESTAMP}, #{item.loginStatus,jdbcType=CHAR}, #{item.loginClient,jdbcType=CHAR}, 
+        #{item.loginDescription,jdbcType=VARCHAR}, #{item.ipAddress,jdbcType=VARCHAR}, 
+        #{item.sessionId,jdbcType=VARCHAR}, #{item.recordStatus,jdbcType=CHAR}, #{item.creatorId,jdbcType=BIGINT}, 
+        #{item.updaterId,jdbcType=BIGINT}, #{item.createDate,jdbcType=TIMESTAMP}, #{item.updateDate,jdbcType=TIMESTAMP}, 
+        #{item.updateCount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertBatchSelective" parameterType="java.util.List">
+    insert into dbo.SYS_LOGIN_AUDIT_TRAIL
+    (ID, ORG_ID, LOGIN_TIME, LOGOUT_TIME, LOGIN_STATUS, LOGIN_CLIENT, LOGIN_DESCRIPTION, 
+      IP_ADDRESS, SESSION_ID, RECORD_STATUS, CREATOR_ID, UPDATER_ID, CREATE_DATE, UPDATE_DATE, 
+      UPDATE_COUNT)
+    values 
+    <foreach collection="list" index="index" item="item" separator=",">
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="item.id != null">
+          #{item.id,jdbcType=BIGINT},
+        </if>
+        <if test="item.id == null">
+          NULL,
+        </if>
+        <if test="item.orgId != null">
+          #{item.orgId,jdbcType=BIGINT},
+        </if>
+        <if test="item.orgId == null">
+          NULL,
+        </if>
+        <if test="item.loginTime != null">
+          #{item.loginTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.loginTime == null">
+          NULL,
+        </if>
+        <if test="item.logoutTime != null">
+          #{item.logoutTime,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.logoutTime == null">
+          NULL,
+        </if>
+        <if test="item.loginStatus != null">
+          #{item.loginStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.loginStatus == null">
+          NULL,
+        </if>
+        <if test="item.loginClient != null">
+          #{item.loginClient,jdbcType=CHAR},
+        </if>
+        <if test="item.loginClient == null">
+          NULL,
+        </if>
+        <if test="item.loginDescription != null">
+          #{item.loginDescription,jdbcType=VARCHAR},
+        </if>
+        <if test="item.loginDescription == null">
+          NULL,
+        </if>
+        <if test="item.ipAddress != null">
+          #{item.ipAddress,jdbcType=VARCHAR},
+        </if>
+        <if test="item.ipAddress == null">
+          NULL,
+        </if>
+        <if test="item.sessionId != null">
+          #{item.sessionId,jdbcType=VARCHAR},
+        </if>
+        <if test="item.sessionId == null">
+          NULL,
+        </if>
+        <if test="item.recordStatus != null">
+          #{item.recordStatus,jdbcType=CHAR},
+        </if>
+        <if test="item.recordStatus == null">
+          NULL,
+        </if>
+        <if test="item.creatorId != null">
+          #{item.creatorId,jdbcType=BIGINT},
+        </if>
+        <if test="item.creatorId == null">
+          NULL,
+        </if>
+        <if test="item.updaterId != null">
+          #{item.updaterId,jdbcType=BIGINT},
+        </if>
+        <if test="item.updaterId == null">
+          NULL,
+        </if>
+        <if test="item.createDate != null">
+          #{item.createDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.createDate == null">
+          NULL,
+        </if>
+        <if test="item.updateDate != null">
+          #{item.updateDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="item.updateDate == null">
+          NULL,
+        </if>
+        <if test="item.updateCount != null">
+          #{item.updateCount,jdbcType=INTEGER},
+        </if>
+        <if test="item.updateCount == null">
+          NULL,
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.orgId != null">
+        ORG_ID = #{record.orgId,jdbcType=BIGINT},
+      </if>
+      <if test="record.loginTime != null">
+        LOGIN_TIME = #{record.loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.logoutTime != null">
+        LOGOUT_TIME = #{record.logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginStatus != null">
+        LOGIN_STATUS = #{record.loginStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.loginClient != null">
+        LOGIN_CLIENT = #{record.loginClient,jdbcType=CHAR},
+      </if>
+      <if test="record.loginDescription != null">
+        LOGIN_DESCRIPTION = #{record.loginDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipAddress != null">
+        IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionId != null">
+        SESSION_ID = #{record.sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recordStatus != null">
+        RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updaterId != null">
+        UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateCount != null">
+        UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    set ID = #{record.id,jdbcType=BIGINT},
+      ORG_ID = #{record.orgId,jdbcType=BIGINT},
+      LOGIN_TIME = #{record.loginTime,jdbcType=TIMESTAMP},
+      LOGOUT_TIME = #{record.logoutTime,jdbcType=TIMESTAMP},
+      LOGIN_STATUS = #{record.loginStatus,jdbcType=CHAR},
+      LOGIN_CLIENT = #{record.loginClient,jdbcType=CHAR},
+      LOGIN_DESCRIPTION = #{record.loginDescription,jdbcType=VARCHAR},
+      IP_ADDRESS = #{record.ipAddress,jdbcType=VARCHAR},
+      SESSION_ID = #{record.sessionId,jdbcType=VARCHAR},
+      RECORD_STATUS = #{record.recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{record.updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{record.updateCount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.paradm.system.entity.dbo.SysLoginAuditTrail">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <set>
+      <if test="orgId != null">
+        ORG_ID = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime != null">
+        LOGOUT_TIME = #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginStatus != null">
+        LOGIN_STATUS = #{loginStatus,jdbcType=CHAR},
+      </if>
+      <if test="loginClient != null">
+        LOGIN_CLIENT = #{loginClient,jdbcType=CHAR},
+      </if>
+      <if test="loginDescription != null">
+        LOGIN_DESCRIPTION = #{loginDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null">
+        IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null">
+        SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordStatus != null">
+        RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      </if>
+      <if test="updaterId != null">
+        UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateCount != null">
+        UPDATE_COUNT = #{updateCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.paradm.system.entity.dbo.SysLoginAuditTrail">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    set ORG_ID = #{orgId,jdbcType=BIGINT},
+      LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      LOGOUT_TIME = #{logoutTime,jdbcType=TIMESTAMP},
+      LOGIN_STATUS = #{loginStatus,jdbcType=CHAR},
+      LOGIN_CLIENT = #{loginClient,jdbcType=CHAR},
+      LOGIN_DESCRIPTION = #{loginDescription,jdbcType=VARCHAR},
+      IP_ADDRESS = #{ipAddress,jdbcType=VARCHAR},
+      SESSION_ID = #{sessionId,jdbcType=VARCHAR},
+      RECORD_STATUS = #{recordStatus,jdbcType=CHAR},
+      CREATOR_ID = #{creatorId,jdbcType=BIGINT},
+      UPDATER_ID = #{updaterId,jdbcType=BIGINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      UPDATE_COUNT = #{updateCount,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="ORG_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.orgId != null">
+            when id = #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_TIME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginTime != null">
+            when id = #{item.id} then #{item.loginTime}
+          </if>
+          <if test="item.loginTime == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGOUT_TIME =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.logoutTime != null">
+            when id = #{item.id} then #{item.logoutTime}
+          </if>
+          <if test="item.logoutTime == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGOUT_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginStatus != null">
+            when id = #{item.id} then #{item.loginStatus}
+          </if>
+          <if test="item.loginStatus == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_CLIENT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginClient != null">
+            when id = #{item.id} then #{item.loginClient}
+          </if>
+          <if test="item.loginClient == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_CLIENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_DESCRIPTION =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginDescription != null">
+            when id = #{item.id} then #{item.loginDescription}
+          </if>
+          <if test="item.loginDescription == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IP_ADDRESS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null">
+            when id = #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SESSION_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sessionId != null">
+            when id = #{item.id} then #{item.sessionId}
+          </if>
+          <if test="item.sessionId == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.SESSION_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null">
+            when id = #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null">
+            when id = #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null">
+            when id = #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null">
+            when id = #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null">
+            when id = #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case " suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null">
+            when id = #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null">
+            when id = #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="ORG_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.orgId != null ">
+            when  #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_TIME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginTime != null ">
+            when  #{item.id} then #{item.loginTime}
+          </if>
+          <if test="item.loginTime == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGOUT_TIME =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.logoutTime != null ">
+            when  #{item.id} then #{item.logoutTime}
+          </if>
+          <if test="item.logoutTime == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGOUT_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginStatus != null ">
+            when  #{item.id} then #{item.loginStatus}
+          </if>
+          <if test="item.loginStatus == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_CLIENT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginClient != null ">
+            when  #{item.id} then #{item.loginClient}
+          </if>
+          <if test="item.loginClient == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_CLIENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="LOGIN_DESCRIPTION =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.loginDescription != null ">
+            when  #{item.id} then #{item.loginDescription}
+          </if>
+          <if test="item.loginDescription == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="IP_ADDRESS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null ">
+            when  #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="SESSION_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.sessionId != null ">
+            when  #{item.id} then #{item.sessionId}
+          </if>
+          <if test="item.sessionId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.SESSION_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="RECORD_STATUS =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATOR_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATER_ID =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="CREATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_DATE =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="UPDATE_COUNT =case id" suffix="end,">
+        <foreach collection="list" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where ID in 
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+       #{item.id} 
+    </foreach>
+  </update>
+  <update id="updateBatchByExample" parameterType="map">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="orgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.orgId}
+        </foreach>
+      </trim>
+      <trim prefix="loginTime =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.loginTime}
+        </foreach>
+      </trim>
+      <trim prefix="logoutTime =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.logoutTime}
+        </foreach>
+      </trim>
+      <trim prefix="loginStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.loginStatus}
+        </foreach>
+      </trim>
+      <trim prefix="loginClient =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.loginClient}
+        </foreach>
+      </trim>
+      <trim prefix="loginDescription =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.loginDescription}
+        </foreach>
+      </trim>
+      <trim prefix="ipAddress =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.ipAddress}
+        </foreach>
+      </trim>
+      <trim prefix="sessionId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.sessionId}
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.recordStatus}
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.creatorId}
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updaterId}
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.createDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateDate}
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          when  #{item.id} then #{item.updateCount}
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBatchByExampleSelective" parameterType="map">
+    update dbo.SYS_LOGIN_AUDIT_TRAIL
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="orgId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.orgId != null ">
+            when  #{item.id} then #{item.orgId}
+          </if>
+          <if test="item.orgId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.ORG_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="loginTime =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.loginTime != null ">
+            when  #{item.id} then #{item.loginTime}
+          </if>
+          <if test="item.loginTime == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="logoutTime =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.logoutTime != null ">
+            when  #{item.id} then #{item.logoutTime}
+          </if>
+          <if test="item.logoutTime == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGOUT_TIME
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="loginStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.loginStatus != null ">
+            when  #{item.id} then #{item.loginStatus}
+          </if>
+          <if test="item.loginStatus == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="loginClient =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.loginClient != null ">
+            when  #{item.id} then #{item.loginClient}
+          </if>
+          <if test="item.loginClient == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_CLIENT
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="loginDescription =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.loginDescription != null ">
+            when  #{item.id} then #{item.loginDescription}
+          </if>
+          <if test="item.loginDescription == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.LOGIN_DESCRIPTION
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="ipAddress =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.ipAddress != null ">
+            when  #{item.id} then #{item.ipAddress}
+          </if>
+          <if test="item.ipAddress == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.IP_ADDRESS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="sessionId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.sessionId != null ">
+            when  #{item.id} then #{item.sessionId}
+          </if>
+          <if test="item.sessionId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.SESSION_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="recordStatus =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.recordStatus != null ">
+            when  #{item.id} then #{item.recordStatus}
+          </if>
+          <if test="item.recordStatus == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.RECORD_STATUS
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="creatorId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.creatorId != null ">
+            when  #{item.id} then #{item.creatorId}
+          </if>
+          <if test="item.creatorId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATOR_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updaterId =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updaterId != null ">
+            when  #{item.id} then #{item.updaterId}
+          </if>
+          <if test="item.updaterId == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATER_ID
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="createDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.createDate != null ">
+            when  #{item.id} then #{item.createDate}
+          </if>
+          <if test="item.createDate == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.CREATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateDate =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateDate != null ">
+            when  #{item.id} then #{item.updateDate}
+          </if>
+          <if test="item.updateDate == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_DATE
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="updateCount =case id" suffix="end,">
+        <foreach collection="recordList" index="index" item="item" separator=" ">
+          <if test="item.updateCount != null ">
+            when  #{item.id} then #{item.updateCount}
+          </if>
+          <if test="item.updateCount == null ">
+            when  #{item.id} then dbo.SYS_LOGIN_AUDIT_TRAIL.UPDATE_COUNT
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
